@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -92,28 +93,33 @@ public class db_controller {
 
 	try {
             open();
-	    resultSet = statement.executeQuery("select * from dbmc536b16.DOCUMENTO");
+	    resultSet = statement.executeQuery("select * from dbmc536b16.Documento");
 	} catch (Exception e) {
 	    throw e;
 	} finally {
 	    while (resultSet.next()) {
-                dbTitulo = resultSet.getString("TITULO");
+                dbTitulo = resultSet.getString("Titulo");
                 System.out.println(dbTitulo);
 
 		if(dbTitulo.contains(titulo)){
 		    System.out.println("Encontrou!");
-                    Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("TITULO"),
-                            resultSet.getInt("TIPO"), resultSet.getInt("NUMACESSOS"),
-                            null, null, null, resultSet.getDate("DATAINSERCAO"));
+                    Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
+                            resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
+                            null, null, null, resultSet.getDate("DataInsercao"));
+                    docFound.setAssunto(resultSet.getString("Assunto"));
+                    docFound.setDescricao(resultSet.getString("Descricao"));
+                    docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
+                    docFound.setPais(resultSet.getString("Pais"));
                     resultDoc.addElement(docFound);
-		    close();
 		}
 
 	    }
 
-            System.out.println("Não encontrou nada!");
-	    close();
+            if (resultDoc == null) {
+                System.out.println("Não encontrou nada!");
+            }
 
+	    close();
             return resultDoc;
 
 	}
