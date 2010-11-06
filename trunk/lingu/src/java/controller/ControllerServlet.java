@@ -109,6 +109,8 @@ public class ControllerServlet extends HttpServlet {
 	db_controller db = new db_controller();
         String[] IDProg;
         String address;
+        java.util.Date today = new java.util.Date();
+     
         /*Login 
          * user - Nome usuario
          * password - Senha usuario
@@ -145,6 +147,9 @@ public class ControllerServlet extends HttpServlet {
         doc.setTitulo(request.getParameter("Titulo").toString());
         doc.setPalavrasChaves(request.getParameter("Chaves").toString());
         IDProg = request.getParameterValues("MultiLing");
+        doc.setIp(request.getLocalAddr());
+        doc.setDataInsercao(today);
+
         try {
             db.NewDoc(doc,IDProg);
 	    System.out.println("Documento cadastrado");

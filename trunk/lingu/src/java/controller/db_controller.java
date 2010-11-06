@@ -127,9 +127,7 @@ public class db_controller {
             open();
             preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)");
 
-
-     
-            preparedStatement.setString(1,doc.getTitulo());
+          preparedStatement.setString(1,doc.getTitulo());
             preparedStatement.setInt(2,doc.getTipo());
             preparedStatement.setString(3,doc.getAssunto());
             preparedStatement.setString(4,doc.getDescricao());
@@ -139,13 +137,14 @@ public class db_controller {
             preparedStatement.setString(8,doc.getLinguaOficial());
             preparedStatement.setString(9,doc.getLinguaUtilizador());
             preparedStatement.setString(10,doc.getPalavrasChaves());
-           preparedStatement.setString(12,"Linux");
-            preparedStatement.setString(13,"192.168.1.1");
+            preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
+            preparedStatement.setString(12,"Linux");
+            preparedStatement.setString(13,doc.getIp());
             preparedStatement.setString(14,"Firefox");
-            preparedStatement.setDate(15,date.valueOf("1998-1-17"));
-                 preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
-
+            preparedStatement.setDate(15, (Date) doc.getDataInsercao());
+            preparedStatement.setNull(16, Types.VARCHAR);
             preparedStatement.executeUpdate();
+          
 
 	} catch (Exception e) {
 	    throw e;
