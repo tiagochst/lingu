@@ -6,6 +6,9 @@
 package controller;
 
 import controller.db_controller;
+import entity.Autor;
+import entity.Documento;
+import entity.PgmMultilinguistico;
 import entity.RedeDeTrabalho;
 import entity.Usuario;
 import java.util.logging.Level;
@@ -100,7 +103,11 @@ public class ControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
         Usuario user = new Usuario();
+        Documento doc = new Documento();
+        PgmMultilinguistico prog = new PgmMultilinguistico();
+        Autor autor = new Autor();
 	db_controller db = new db_controller();
+        String[] IDProg;
         String address;
         /*Login 
          * user - Nome usuario
@@ -127,6 +134,31 @@ public class ControllerServlet extends HttpServlet {
          *
          */
     else if(request.getParameter("Nome") != null){
+        doc.setAssunto(request.getParameter("Assunto").toString());
+        doc.setDescricao(request.getParameter("Descrição").toString());
+	doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
+        doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
+        doc.setPais(request.getParameter("Pais").toString()) ;
+        doc.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
+	doc.setLinguaPalavrasChaves(request.getParameter("LinguaChave").toString());
+        doc.setLinguaDescricao(request.getParameter("LinguaDescricao").toString());
+        doc.setTitulo(request.getParameter("Titulo").toString());
+        doc.setPalavrasChaves(request.getParameter("Chaves").toString());
+        IDProg = request.getParameterValues("MultiLing");
+        try {
+            db.NewDoc(doc,IDProg);
+	    System.out.println("Documento cadastrado");
+    	    address = "index.jsp";
+           
+
+        } catch (Exception ex) {
+
+	    System.out.println("Erro cadastro usuario");
+             address = "ErroCadastro.jsp";
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        else if(request.getParameter("Upload") != null){
         RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
         user.setNome(request.getParameter("Nome").toString());
 	user.setSenha(request.getParameter("Senha").toString());
@@ -139,7 +171,7 @@ public class ControllerServlet extends HttpServlet {
             db.NewUsr(user);
 	    System.out.println("Usuario cadastrado");
     	    address = "index.jsp";
-           
+
 
         } catch (Exception ex) {
 
@@ -147,7 +179,7 @@ public class ControllerServlet extends HttpServlet {
              address = "ErroCadastro.jsp";
             Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-	    
+	
 	RequestDispatcher dispatcher =
 	    request.getRequestDispatcher(address);
 	dispatcher.forward(request, response);

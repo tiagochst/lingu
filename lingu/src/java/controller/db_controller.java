@@ -117,7 +117,37 @@ public class db_controller {
 
 	}
     }
+ public Boolean NewDoc(Documento doc,String[] IDProg) throws Exception {
 
+	String dbsenha;
+	try {
+
+            open();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)");
+
+
+     
+            preparedStatement.setString(1,doc.getTitulo());
+            preparedStatement.setInt(2,doc.getTipo());
+            preparedStatement.setString(3,doc.getAssunto());
+            preparedStatement.setString(4,doc.getDescricao());
+            preparedStatement.setString(5,doc.getLinguaDescricao());
+            preparedStatement.setString(6,doc.getPais());
+             preparedStatement.setInt(7,0);
+            preparedStatement.setString(8,doc.getLinguaOficial());
+            preparedStatement.setString(9,doc.getLinguaUtilizador());
+            preparedStatement.setString(10,doc.getPalavrasChaves());
+            preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
+
+            preparedStatement.executeUpdate();
+
+	} catch (Exception e) {
+	    throw e;
+	} finally {
+	 	    close();
+		    return true;
+		}
+    }
     private void writeMetaData(ResultSet resultSet) throws SQLException {
 	// 	Now get some metadata from the database
 	// Result set get the result of the SQL query
