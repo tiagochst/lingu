@@ -156,8 +156,8 @@ public Boolean NewUsr(String nome,String senha,String tipo,String email,
 	    Class.forName("com.mysql.jdbc.Driver");
 	    // Setup the connection with the DB
 	    connect = DriverManager
-		.getConnection("jdbc:mysql://localhost/sgct?"
-			       + "user=sgct&password=sgct");
+		.getConnection("jdbc:mysql://sql2.ic.unicamp.br:3306/dbmc536b16?"
+			       + "user=mc536user16&password=aeyeenai");
 
 	    // Statements allow to issue SQL queries to the database
 	    statement = connect.createStatement();
