@@ -59,7 +59,7 @@ a:hover {
 
 #header {
 	overflow: hidden;
-	width: 1000px;
+	width: 800px;
 	height: 50px;
 	margin: 0px auto 20px auto;
 	background: url(images/img01.jpg) no-repeat right top;
@@ -69,7 +69,7 @@ a:hover {
 
 #logo {
 	float: left;
-	width: 300px;
+	width: 200px;
 	margin: 0;
 	padding: 0;
 	color: #000000;
@@ -154,7 +154,7 @@ a:hover {
 
 #menu {
 	float: right;
-	width: 700px;
+	width: 470px;
 }
 
 #menu ul {
@@ -193,7 +193,7 @@ a:hover {
 /* Page */
 
 #page {
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
 	padding: 40px 0px 0px 0px;
 	border-top: 1px solid #BBBBBB;
@@ -205,7 +205,7 @@ a:hover {
 
 #content {
 	float: left;
-	width: 660px;
+	width: 460px;
 	padding: 0px 0px 0px 0px;
 	background: #FFFFFF;
 }
@@ -334,7 +334,7 @@ a:hover {
 /* Footer */
 
 #footer {
-	width: 1000px;
+	width: 800px;
 	height: 50px;
 	margin: 0 auto;
 	padding: 0px 0 15px 0;
