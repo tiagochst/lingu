@@ -8,6 +8,7 @@ package controller;
 import entity.Documento;
 import entity.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -118,12 +119,13 @@ public class db_controller {
 	}
     }
  public Boolean NewDoc(Documento doc,String[] IDProg) throws Exception {
+ Date date = new Date(0000-00-00);
 
 	String dbsenha;
 	try {
 
             open();
-            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)");
 
 
      
@@ -133,11 +135,15 @@ public class db_controller {
             preparedStatement.setString(4,doc.getDescricao());
             preparedStatement.setString(5,doc.getLinguaDescricao());
             preparedStatement.setString(6,doc.getPais());
-             preparedStatement.setInt(7,0);
+            preparedStatement.setInt(7,0);
             preparedStatement.setString(8,doc.getLinguaOficial());
             preparedStatement.setString(9,doc.getLinguaUtilizador());
             preparedStatement.setString(10,doc.getPalavrasChaves());
-            preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
+           preparedStatement.setString(12,"Linux");
+            preparedStatement.setString(13,"192.168.1.1");
+            preparedStatement.setString(14,"Firefox");
+            preparedStatement.setDate(15,date.valueOf("1998-1-17"));
+                 preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
 
             preparedStatement.executeUpdate();
 
