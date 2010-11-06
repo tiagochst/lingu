@@ -5,9 +5,6 @@
     <sql:query var="rede" dataSource="jdbc/mc536">
         select * from RedeDeTrabalho
     </sql:query>
-        <sql:query var="t" dataSource="jdbc/mc536">
-            SELECT ID,Nome FROM Usuario
-        </sql:query>
 
 
 	<div id="page">
@@ -64,11 +61,6 @@
             <option value="${row.ID}">${row.Nome}</option>
         </c:forEach>
     </select>
-          <select name="idRede2">
-        <c:forEach var="row" items="${t.rows}">
-            <option value="${row.ID}">${row.Nome}</option>
-        </c:forEach>
-    </select>
         
         </td>
         </tr>
@@ -93,4 +85,3 @@
 			<div style="clear: both;">&nbsp;</div>
 	</div>
 	<!-- end #page -->
-</div>

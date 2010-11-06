@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,11 +15,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author ra082941
+ * @author ra060210
  */
 @Entity
 @Table(name = "RedeDeTrabalho")
@@ -42,6 +44,8 @@ public class RedeDeTrabalho implements Serializable {
     private String email;
     @Column(name = "URL")
     private String url;
+    @OneToMany(mappedBy = "redeDeTrabalho")
+    private Collection<Usuario> usuarioCollection;
 
     public RedeDeTrabalho() {
     }
@@ -85,6 +89,14 @@ public class RedeDeTrabalho implements Serializable {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
     }
 
     @Override

@@ -6,6 +6,7 @@
 package controller;
 
 import controller.db_controller;
+import entity.RedeDeTrabalho;
 import entity.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -126,13 +127,14 @@ public class ControllerServlet extends HttpServlet {
          *
          */
     else if(request.getParameter("Nome") != null){
+        RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
         user.setNome(request.getParameter("Nome").toString());
 	user.setSenha(request.getParameter("Senha").toString());
 	user.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
 	user.setEmail(request.getParameter("Email").toString());
 	user.setPais(request.getParameter("Pais").toString()) ;
         user.setLingua(request.getParameter("Lingua").toString());
-        user.setIDRede(Integer.parseInt(request.getParameter("idRede")));
+        user.setRedeDeTrabalho(rede);
    	try {
             db.NewUsr(user);
 	    System.out.println("Usuario cadastrado");

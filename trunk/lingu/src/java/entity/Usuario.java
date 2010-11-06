@@ -8,19 +8,24 @@ package entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
  *
- * @author ra082941
+ * @author ra060210
  */
 @Entity
 @Table(name = "Usuario")
@@ -32,8 +37,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Usuario.findByPais", query = "SELECT u FROM Usuario u WHERE u.pais = :pais"),
     @NamedQuery(name = "Usuario.findByLingua", query = "SELECT u FROM Usuario u WHERE u.lingua = :lingua"),
     @NamedQuery(name = "Usuario.findByEmail", query = "SELECT u FROM Usuario u WHERE u.email = :email"),
-    @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha"),
-    @NamedQuery(name = "Usuario.findByIDRede", query = "SELECT u FROM Usuario u WHERE u.iDRede = :iDRede")})
+    @NamedQuery(name = "Usuario.findBySenha", query = "SELECT u FROM Usuario u WHERE u.senha = :senha")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -59,11 +63,18 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "Senha")
     private String senha;
-    @Basic(optional = false)
-    @Column(name = "IDRede")
-    private int iDRede;
-    @ManyToMany(mappedBy = "usuarioCollection")
+    @JoinTable(name = "SuportaPgmMult", joinColumns = {
+        @JoinColumn(name = "IDUser", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDPgmMult", referencedColumnName = "ID")})
+    @ManyToMany
     private Collection<PgmMultilinguistico> pgmMultilinguisticoCollection;
+    @ManyToMany(mappedBy = "usuarioCollection")
+    private Collection<Documento> documentoCollection;
+    @JoinColumn(name = "IDRede", referencedColumnName = "ID")
+    @ManyToOne
+    private RedeDeTrabalho redeDeTrabalho;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Collection<Comentario> comentarioCollection;
 
     public Usuario() {
     }
@@ -72,7 +83,7 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public Usuario(Integer id, String nome, int tipo, String pais, String lingua, String email, String senha, int iDRede) {
+    public Usuario(Integer id, String nome, int tipo, String pais, String lingua, String email, String senha) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
@@ -80,7 +91,6 @@ public class Usuario implements Serializable {
         this.lingua = lingua;
         this.email = email;
         this.senha = senha;
-        this.iDRede = iDRede;
     }
 
     public Integer getId() {
@@ -139,20 +149,36 @@ public class Usuario implements Serializable {
         this.senha = senha;
     }
 
-    public int getIDRede() {
-        return iDRede;
-    }
-
-    public void setIDRede(int iDRede) {
-        this.iDRede = iDRede;
-    }
-
     public Collection<PgmMultilinguistico> getPgmMultilinguisticoCollection() {
         return pgmMultilinguisticoCollection;
     }
 
     public void setPgmMultilinguisticoCollection(Collection<PgmMultilinguistico> pgmMultilinguisticoCollection) {
         this.pgmMultilinguisticoCollection = pgmMultilinguisticoCollection;
+    }
+
+    public Collection<Documento> getDocumentoCollection() {
+        return documentoCollection;
+    }
+
+    public void setDocumentoCollection(Collection<Documento> documentoCollection) {
+        this.documentoCollection = documentoCollection;
+    }
+
+    public RedeDeTrabalho getRedeDeTrabalho() {
+        return redeDeTrabalho;
+    }
+
+    public void setRedeDeTrabalho(RedeDeTrabalho redeDeTrabalho) {
+        this.redeDeTrabalho = redeDeTrabalho;
+    }
+
+    public Collection<Comentario> getComentarioCollection() {
+        return comentarioCollection;
+    }
+
+    public void setComentarioCollection(Collection<Comentario> comentarioCollection) {
+        this.comentarioCollection = comentarioCollection;
     }
 
     @Override
