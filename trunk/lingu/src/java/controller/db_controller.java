@@ -12,16 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.*;
-;
-import java.io.*;
-
-import java.sql.BatchUpdateException;
-import java.sql.DatabaseMetaData;
-import java.sql.SQLWarning;
+import java.sql.Types;
 
 /**
  *
@@ -33,25 +24,26 @@ public class db_controller {
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-public Boolean NewUsr(Usuario user)
-	throws Exception {
+    public Boolean NewUsr(Usuario user) throws Exception {
+
 	String dbsenha;
 	try {
+
             open();
-        preparedStatement = connect
-	.prepareStatement("insert into  mc536user16.Usuario values (default, ?, ?, ?, ? , ?, ?,?)");
-		// "myuser, webpage, datum, summery, COMMENTS from feedback.COMMENTS");
-			// Parameters start with 1
-			if(user.getIDRede()!=0){
-                             preparedStatement.setInt(7,user.getIDRede() );
-                        }
-                        preparedStatement.setString(3,user.getPais());
-			preparedStatement.setString(6,user.getSenha());
-			preparedStatement.setString(1,user.getNome());
-			preparedStatement.setString(4,user.getLingua());
-			preparedStatement.setString(5,user.getEmail());
-                        preparedStatement.setInt(2,user.getTipo());
-                        preparedStatement.executeUpdate();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Usuario values (default, ?, ?, ?, ?, ?, ?, ?)");
+            if(user.getIDRede()!=0){
+                preparedStatement.setInt(7,user.getIDRede() );
+            }
+            else {
+                preparedStatement.setNull(7, Types.INTEGER);
+            }
+            preparedStatement.setString(3,user.getPais());
+            preparedStatement.setString(6,user.getSenha());
+            preparedStatement.setString(1,user.getNome());
+            preparedStatement.setString(4,user.getLingua());
+            preparedStatement.setString(5,user.getEmail());
+            preparedStatement.setInt(2,user.getTipo());
+            preparedStatement.executeUpdate();
 	 
 	} catch (Exception e) {
 	    throw e;
@@ -154,15 +146,16 @@ public Boolean NewUsr(Usuario user)
 	    Class.forName("com.mysql.jdbc.Driver");
 	    // Setup the connection with the DB
 	    connect = DriverManager
-		.getConnection("jdbc:mysql://sql2.ic.unicamp.br:3306/dbmc536b16?"
-			       + "user=mc536user16&password=aeyeenai");
+		.getConnection("jdbc:mysql://sql2.lab.ic.unicamp.br:3306/dbmc536b16",
+			       "mc536user16", "aeyeenai");
 
 	    // Statements allow to issue SQL queries to the database
 	    statement = connect.createStatement();
          }
          catch (Exception e) {
-
-	}
+            System.out.println("Não abriu conexão.");
+            System.out.println(e);
+	 }
      }
     // You need to close the resultSet
     private void close() {
