@@ -88,10 +88,11 @@ public class db_controller {
 
     }
 
+    /* Busca documento pelo título. */
     Vector SearchTitle(Documento doc) throws SQLException, Exception {
 
         String dbTitulo;
-        String titulo = doc.getTitulo();
+        String titulo = doc.getTitulo().toLowerCase();
         Vector resultDoc = new Vector();
 
 	try {
@@ -101,7 +102,7 @@ public class db_controller {
 	    throw e;
 	} finally {
 	    while (resultSet.next()) {
-                dbTitulo = resultSet.getString("Titulo");
+                dbTitulo = resultSet.getString("Titulo").toLowerCase();
                 System.out.println(dbTitulo);
 
 		if(dbTitulo.contains(titulo)){
