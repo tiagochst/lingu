@@ -41,7 +41,7 @@
     </welcome-file-list>
     <resource-ref>
         <description>Database for lingu application</description>
-        <res-ref-name>jdbc/sgct</res-ref-name>
+        <res-ref-name>jdbc/mc536</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
@@ -53,7 +53,7 @@
             <include-prelude>/WEB-INF/jspf/header_home.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
-             <jsp-property-group>
+        <jsp-property-group>
             <description>header and footer settings</description>
             <url-pattern>/cadastro.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header_cadastro.jspf</include-prelude>
