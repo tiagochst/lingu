@@ -4,7 +4,7 @@
  */
 
 package controller;
-
+import entity.Autor;
 import entity.Documento;
 import entity.Usuario;
 import java.sql.Connection;
@@ -128,18 +128,18 @@ public class db_controller {
 
 	}
     }
- public Boolean NewDoc(Documento doc,String[] IDProg) throws Exception {
+ public Boolean NewDoc(Documento doc,String[] IDProg,String[] IDAutor) throws Exception {
 
        java.util.Date today = new java.util.Date();
        java.sql.Date sqlToday = new java.sql.Date(today.getTime());
-
         String dbsenha;
+        Integer ID;
 	try {
 
             open();
             preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)");
 
-          preparedStatement.setString(1,doc.getTitulo());
+            preparedStatement.setString(1,doc.getTitulo());
             preparedStatement.setInt(2,doc.getTipo());
             preparedStatement.setString(3,doc.getAssunto());
             preparedStatement.setString(4,doc.getDescricao());
@@ -156,9 +156,22 @@ public class db_controller {
             preparedStatement.setDate(15,sqlToday);
             preparedStatement.setString(16,doc.getLocal());
             preparedStatement.executeUpdate();
-          
 
-	} catch (Exception e) {
+
+	    resultSet = statement.executeQuery("select * from dbmc536b16.Documento order by ID DESC limit 1");
+            resultSet.next();
+	    ID =Integer.parseInt( resultSet.getString("ID"));
+
+      
+   if (IDAutor != null) {
+		for (int i = 0; i < IDAutor.length; i++) {
+                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.AutorDoc values ("+Integer.parseInt(IDAutor[i])+","+ID+")");
+                    preparedStatement.executeUpdate();
+		}
+            }
+     
+    	} catch (Exception e) {
+            System.out.println("ERRO!" + e);
 	    throw e;
 	} finally {
 	 	    close();

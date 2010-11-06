@@ -108,7 +108,7 @@ public class ControllerServlet extends HttpServlet {
         PgmMultilinguistico prog = new PgmMultilinguistico();
         Autor autor = new Autor();
 	db_controller db = new db_controller();
-        String[] IDProg;
+        String[] IDProg,IDAut;
         String address,ag,browser;
         Locale defaultLocale = Locale.getDefault();
      
@@ -159,8 +159,11 @@ public class ControllerServlet extends HttpServlet {
         doc.setNavegador(browser);
         doc.setSo(System.getProperty("os.name"));
         doc.setLocal(defaultLocale.getDisplayCountry());
-        try {
-            db.NewDoc(doc,IDProg);
+        IDAut = request.getParameterValues("Autor");
+
+
+         try {
+            db.NewDoc(doc,IDProg,IDAut);
 	    System.out.println("Documento cadastrado");
     	    address = "index.jsp";
            
@@ -221,5 +224,7 @@ public class ControllerServlet extends HttpServlet {
 	public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
 
 }

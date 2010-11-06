@@ -8,6 +8,9 @@
 <sql:query var="doc" dataSource="jdbc/mc536">
   SELECT ID,Titulo FROM Documento
 </sql:query>
+<sql:query var="aut" dataSource="jdbc/mc536">
+  SELECT ID,Nome FROM Autor
+</sql:query>
 
 
 <div id="page">
@@ -111,13 +114,17 @@
 		  </select>
               	</td>
 	      </tr>
-              <tr>
-		<td>Autor </td>
-		<td>  <INPUT type="text" name="Autor" size="20" maxlength="60" alt="Autor documento">
-		</td>
+                          <tr>
+		<td> Autor:</td><td>
+                  <select name="Autor" multiple size="5">
+		    <option value="0" selected>Anônimo</option>
+		    <c:forEach var="row" items="${aut.rows}">
+		      <option value="${row.ID}">${row.Nome}</option>
+		    </c:forEach>
+		  </select>
+              	</td>
 	      </tr>
-              
-
+      
               <tr>
 		<td></td>
 		<td><INPUT type="submit" name="Upload" value="Upload">
