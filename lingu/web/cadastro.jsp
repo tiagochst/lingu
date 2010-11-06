@@ -54,7 +54,7 @@
 <tr>
           <td>  <strong>Rede de trabalho:</strong></td><td>
     <select name="idRede">
-             <option value="1">Sem rede</option>
+             <option value="0">Sem rede</option>
         <c:forEach var="row" items="${rede.rows}">
             <option value="${row.ID}">${row.nome}</option>
         </c:forEach>
