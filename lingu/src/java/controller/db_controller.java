@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.util.Vector;
 
 /**
  *
@@ -32,8 +33,8 @@ public class db_controller {
 
             open();
             preparedStatement = connect.prepareStatement("insert into dbmc536b16.Usuario values (default, ?, ?, ?, ?, ?, ?, ?)");
-            if(user.getIDRede()!=0){
-                preparedStatement.setInt(7,user.getIDRede() );
+            if(user.getRedeDeTrabalho().getId() != 0){
+                preparedStatement.setInt(7,user.getRedeDeTrabalho().getId());
             }
             else {
                 preparedStatement.setNull(7, Types.INTEGER);
@@ -82,10 +83,11 @@ public class db_controller {
 
     }
 
-    void SearchTitle(Documento doc) throws SQLException, Exception {
+    Vector SearchTitle(Documento doc) throws SQLException, Exception {
 
         String dbTitulo;
         String titulo = doc.getTitulo();
+        Vector resultDoc = new Vector();
 
 	try {
             open();
@@ -99,9 +101,10 @@ public class db_controller {
 
 		if(dbTitulo.contains(titulo)){
 		    System.out.println("Encontrou!");
-                    Documento resultDoc = new Documento(Integer.parseInt(resultSet.getString("ID")), resultSet.getString("TITULO"),
-                            Integer.parseInt(resultSet.getString("TIPO")), Integer.parseInt(resultSet.getString("NUMACESSOS")),
-                            null, null, null, resultSet.getString("DATAINSERCAO"));
+                    Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("TITULO"),
+                            resultSet.getInt("TIPO"), resultSet.getInt("NUMACESSOS"),
+                            null, null, null, resultSet.getDate("DATAINSERCAO"));
+                    resultDoc.addElement(docFound);
 		    close();
 		}
 
@@ -109,6 +112,8 @@ public class db_controller {
 
             System.out.println("Não encontrou nada!");
 	    close();
+
+            return resultDoc;
 
 	}
     }

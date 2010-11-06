@@ -8,6 +8,7 @@ package controller;
 import entity.Documento;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,22 +78,23 @@ public class SearchControllerServlet extends HttpServlet {
         db_controller db = new db_controller();
         Documento doc = new Documento();
 
+        String address;
+
         /* Busca por título do documento. */
         if (request.getParameter("Titulo") != null) {
             doc.setTitulo(request.getParameter("Titulo").toString());
         }
 
         try {
-            db.SearchTitle(doc);
-	    System.out.println("Usuario cadastrado");
-    	    address = "index.jsp";
+            Vector resultDoc = db.SearchTitle(doc);
+            address = "resultado.jsp";
 
 
         } catch (Exception ex) {
 
-	    System.out.println("Erro cadastro usuario");
-             address = "ErroCadastro.jsp";
-            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+	    System.out.println("Erro na busca!");
+            address = "ErroBusca.jsp";
+
         }
     }
 
