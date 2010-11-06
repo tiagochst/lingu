@@ -1,9 +1,13 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
 
     <sql:query var="rede" dataSource="jdbc/mc536">
-        SELECT ID,NOME FROM RedeDeTrabalho
+        select * from RedeDeTrabalho
     </sql:query>
+        <sql:query var="t" dataSource="jdbc/mc536">
+            SELECT ID,Nome FROM Usuario
+        </sql:query>
 
 
 	<div id="page">
@@ -11,7 +15,8 @@
 		<div class="post">
 				<h2 class="title"><a href="#">Cadastro de Usuário</a></h2>
 				<div class="entry">
-
+ 
+   
    <FORM action="ControllerServlet" method="POST">
 	  <table>
 	    <tbody>
@@ -56,9 +61,15 @@
     <select name="idRede">
              <option value="0">Sem rede</option>
         <c:forEach var="row" items="${rede.rows}">
-            <option value="${row.ID}">${row.nome}</option>
+            <option value="${row.ID}">${row.Nome}</option>
         </c:forEach>
     </select>
+          <select name="idRede2">
+        <c:forEach var="row" items="${t.rows}">
+            <option value="${row.ID}">${row.Nome}</option>
+        </c:forEach>
+    </select>
+        
         </td>
         </tr>
 
