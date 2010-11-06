@@ -231,12 +231,12 @@ a:hover {
 .post .entry {
 	padding: 10px 0px 20px 0px;
 	padding-bottom: 20px;
-	border-bottom: 1px solid #BBBBBB;
 	text-align: justify;
 }
 
-.post .entry ul ul {
-        line-height: 350px;
+.post .entry ul {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #BBBBBB;
 }
 
 .post .meta {

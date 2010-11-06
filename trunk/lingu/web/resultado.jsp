@@ -6,9 +6,9 @@
             <h3 class="title"><a href="#">Busca</a></h3>
             <div class="entry">
                         <c:forEach var="res" items="${Resultado}">
-                        <h2>${res.titulo}</h2>
+                        <h2><a href="#">${res.titulo}</a></h2>
                         <ul>
-                            <li><a href="#">${res.assunto}</a></li>
+                            <li>${res.assunto}</li>
                         </ul>
                         </c:forEach>
             </div>
