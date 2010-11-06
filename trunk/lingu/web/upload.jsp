@@ -26,6 +26,11 @@
                     <input type="file" name="Upload" value="" width="2000" />
                   </td>
 	      </tr>
+                  <tr>
+		<td>Titulo</td>
+		<td> <INPUT type="text" name="Titulo" size="20" maxlength="60" alt="Lingua da descrição">
+		</td>
+	      </tr>
 	      <tr>
 		<td>Assunto</td>
                 <td><textarea name="Assunto" rows="4" cols="20">
@@ -85,28 +90,33 @@
 		<td>  <INPUT type="text" name="LinguaChave" size="20" maxlength="30" alt="Lingua das palavras chaves">
 		</td>
 	      </tr>
-<tr>
-          <td>  <strong>Docuemento resposta:</strong></td><td>
+              <%--<tr>
+          <td>  Documento resposta:</td><td>
     <select name="DocResp">
              <option value="0">Não é resposta</option>
         <c:forEach var="row" items="${doc.rows}">
             <option value="${row.ID}">${row.Titulo}</option>
         </c:forEach>
     </select>
-                  <select name="MultiLing">
-             <option value="0">Nenhum programa</option>
+              	</td>
+	      </tr>
+              --%>
+              <tr>
+          <td>  Programa multilinguismo:</td><td>
+                  <select name="MultiLing" multiple size="5">
+             <option value="0" selected>Nenhum programa</option>
         <c:forEach var="row" items="${prog.rows}">
             <option value="${row.ID}">${row.Titulo}</option>
         </c:forEach>
     </select>
+              	</td>
+	      </tr>
               <tr>
 		<td>Autor </td>
 		<td>  <INPUT type="text" name="Autor" size="20" maxlength="60" alt="Autor documento">
 		</td>
 	      </tr>
         
-        </td>
-        </tr>
 
               <tr>
 		<td></td>
