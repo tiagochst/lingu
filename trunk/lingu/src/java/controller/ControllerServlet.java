@@ -157,7 +157,7 @@ public class ControllerServlet extends HttpServlet {
         else if (ag.contains("firefox")) browser = "Firefox";
         else  browser = "Safari";
         doc.setNavegador(browser);
-        
+        doc.setSo(System.getProperty("os.name"));
        
         try {
             db.NewDoc(doc,IDProg);

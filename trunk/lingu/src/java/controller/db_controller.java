@@ -8,15 +8,16 @@ package controller;
 import entity.Documento;
 import entity.Usuario;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 
 
@@ -128,9 +129,8 @@ public class db_controller {
     }
  public Boolean NewDoc(Documento doc,String[] IDProg) throws Exception {
 
-        Calendar now = Calendar.getInstance();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        java.sql.Date effect_from = new java.sql.Date(formatter.format(now.getTime()));
+       java.util.Date today = new java.util.Date();
+       java.sql.Date sqlToday = new java.sql.Date(today.getTime());
 
         String dbsenha;
 	try {
@@ -149,10 +149,10 @@ public class db_controller {
             preparedStatement.setString(9,doc.getLinguaUtilizador());
             preparedStatement.setString(10,doc.getPalavrasChaves());
             preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
-            preparedStatement.setString(12,"Linux");
+            preparedStatement.setString(12,doc.getSo());
             preparedStatement.setString(13,doc.getIp());
             preparedStatement.setString(14,doc.getNavegador());
-            preparedStatement.setDate(15,effect_from);
+            preparedStatement.setDate(15,sqlToday);
             preparedStatement.setNull(16, Types.VARCHAR);
             preparedStatement.executeUpdate();
           
