@@ -163,7 +163,7 @@ public class ControllerServlet extends HttpServlet {
             Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        else if(request.getParameter("Nome") != null){
+    else if(request.getParameter("Nome") != null){
         RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
         user.setNome(request.getParameter("Nome").toString());
 	user.setSenha(request.getParameter("Senha").toString());

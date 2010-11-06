@@ -49,6 +49,7 @@
     <jsp-config>
         <jsp-property-group>
             <description>header and footer settings</description>
+            <url-pattern>/resultado.jsp</url-pattern>
             <url-pattern>/index.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header_home.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
@@ -58,8 +59,8 @@
             <url-pattern>/cadastro.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header_cadastro.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
-        </jsp-property-group> 
-               <jsp-property-group>
+        </jsp-property-group>
+        <jsp-property-group>
             <description>header and footer settings</description>
             <url-pattern>/upload.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header_upload.jspf</include-prelude>

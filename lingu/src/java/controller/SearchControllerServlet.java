@@ -9,6 +9,8 @@ import entity.Documento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,8 +36,8 @@ public class SearchControllerServlet extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
+
         try {
-            /* TODO output your page here
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet SearchControllerServlet</title>");  
@@ -44,7 +46,6 @@ public class SearchControllerServlet extends HttpServlet {
             out.println("<h1>Servlet SearchControllerServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
-            */
         } finally { 
             out.close();
         }
@@ -74,7 +75,7 @@ public class SearchControllerServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
 
         db_controller db = new db_controller();
         Documento doc = new Documento();
@@ -95,11 +96,11 @@ public class SearchControllerServlet extends HttpServlet {
 
 	    System.out.println("Erro na busca!");
             address = "erroBusca.jsp";
+            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
 
         }
 
-        RequestDispatcher dispatcher =
-	    request.getRequestDispatcher(address);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
 	dispatcher.forward(request, response);
     }
 
