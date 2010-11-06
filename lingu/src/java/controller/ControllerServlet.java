@@ -29,6 +29,7 @@ public class ControllerServlet extends HttpServlet {
     String loginUsuario = "mc436";
     String senhaUsuario = "mc436";
 
+
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -99,19 +100,17 @@ public class ControllerServlet extends HttpServlet {
 	throws ServletException, IOException {
         Usuario user = new Usuario();
 	db_controller db = new db_controller();
-        String nome,senha; /*Login cadastro*/
-	String tipo,email,rg,pais,dia,mes,ano; /*Cadastro*/
         String address;
         /*Login 
          * user - Nome usuario
          * password - Senha usuario
          */
         if(request.getParameter("user") != null){
-           nome = request.getParameter("user").toString();
-	   senha = request.getParameter("password").toString();
+           user.setNome(request.getParameter("user").toString());
+	   user.setSenha(request.getParameter("password").toString());
 
 	try {
-            db.IsUsr(nome,senha);
+            db.IsUsr(user.getNome(),user.getSenha());
 	    System.out.println("Usuario verificado");
 
         } catch (Exception ex) {
@@ -137,7 +136,7 @@ public class ControllerServlet extends HttpServlet {
    	try {
             db.NewUsr(user);
 	    System.out.println("Usuario cadastrado");
-    	    address = "AreaUsuario.jsp";
+    	    address = "index.jsp";
            
 
         } catch (Exception ex) {
