@@ -22,13 +22,14 @@ import javax.persistence.Table;
 
 /**
  *
- * @author ra082941
+ * @author ra060210
  */
 @Entity
 @Table(name = "PgmMultilinguistico")
 @NamedQueries({
     @NamedQuery(name = "PgmMultilinguistico.findAll", query = "SELECT p FROM PgmMultilinguistico p"),
     @NamedQuery(name = "PgmMultilinguistico.findById", query = "SELECT p FROM PgmMultilinguistico p WHERE p.id = :id"),
+    @NamedQuery(name = "PgmMultilinguistico.findByNome", query = "SELECT p FROM PgmMultilinguistico p WHERE p.nome = :nome"),
     @NamedQuery(name = "PgmMultilinguistico.findByDescricao", query = "SELECT p FROM PgmMultilinguistico p WHERE p.descricao = :descricao"),
     @NamedQuery(name = "PgmMultilinguistico.findByLingua", query = "SELECT p FROM PgmMultilinguistico p WHERE p.lingua = :lingua")})
 public class PgmMultilinguistico implements Serializable {
@@ -39,16 +40,26 @@ public class PgmMultilinguistico implements Serializable {
     @Column(name = "ID")
     private Integer id;
     @Basic(optional = false)
+    @Column(name = "Nome")
+    private String nome;
+    @Basic(optional = false)
     @Column(name = "Descricao")
     private String descricao;
     @Basic(optional = false)
     @Column(name = "Lingua")
     private String lingua;
-    @JoinTable(name = "SuportaPgmMult", joinColumns = {
-        @JoinColumn(name = "IDPgmMult", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "IDUser", referencedColumnName = "ID")})
-    @ManyToMany
+    @ManyToMany(mappedBy = "pgmMultilinguisticoCollection")
     private Collection<Usuario> usuarioCollection;
+    @JoinTable(name = "AutorDoc", joinColumns = {
+        @JoinColumn(name = "IDDoc", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDAutor", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Autor> autorCollection;
+    @JoinTable(name = "DocPgmMult", joinColumns = {
+        @JoinColumn(name = "IDPgmMult", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDDoc", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Documento> documentoCollection;
 
     public PgmMultilinguistico() {
     }
@@ -57,8 +68,9 @@ public class PgmMultilinguistico implements Serializable {
         this.id = id;
     }
 
-    public PgmMultilinguistico(Integer id, String descricao, String lingua) {
+    public PgmMultilinguistico(Integer id, String nome, String descricao, String lingua) {
         this.id = id;
+        this.nome = nome;
         this.descricao = descricao;
         this.lingua = lingua;
     }
@@ -69,6 +81,14 @@ public class PgmMultilinguistico implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {
@@ -93,6 +113,22 @@ public class PgmMultilinguistico implements Serializable {
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
+    }
+
+    public Collection<Autor> getAutorCollection() {
+        return autorCollection;
+    }
+
+    public void setAutorCollection(Collection<Autor> autorCollection) {
+        this.autorCollection = autorCollection;
+    }
+
+    public Collection<Documento> getDocumentoCollection() {
+        return documentoCollection;
+    }
+
+    public void setDocumentoCollection(Collection<Documento> documentoCollection) {
+        this.documentoCollection = documentoCollection;
     }
 
     @Override

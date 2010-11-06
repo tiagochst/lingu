@@ -5,6 +5,7 @@
 
 package controller;
 
+import entity.Documento;
 import entity.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -52,14 +53,12 @@ public class db_controller {
 		    return true;
 		}
     }
-    public Boolean IsUsr(String nome,String senha)
-	throws Exception {
+    public Boolean IsUsr(String ID,String senha) throws Exception {
+
 	String dbsenha;
 	try {
             open();
-	    // Result set get the result of the SQL query
-	    resultSet = statement
-		.executeQuery("select * from sgct.USUARIO where NOME='"+nome+"'");
+	    resultSet = statement.executeQuery("select * from dbmc536b16.USUARIO where ID='"+ID+"'");
 	} catch (Exception e) {
 	    throw e;
 	} finally {
@@ -68,19 +67,50 @@ public class db_controller {
                 System.out.println(dbsenha);
 
 		if(dbsenha.equals(senha)){
-		    System.out.println("User OK");
+		    System.out.println("User OK.");
 		    close();
 		    return true;
 		}
 
 	    }
-             System.out.println("Not User ");
+            System.out.println("Not User!");
 
 	    close();
             return false;
 
 	}
 
+    }
+
+    void SearchTitle(Documento doc) throws SQLException, Exception {
+
+        String dbTitulo;
+        String titulo = doc.getTitulo();
+
+	try {
+            open();
+	    resultSet = statement.executeQuery("select * from dbmc536b16.DOCUMENTO");
+	} catch (Exception e) {
+	    throw e;
+	} finally {
+	    while (resultSet.next()) {
+                dbTitulo = resultSet.getString("TITULO");
+                System.out.println(dbTitulo);
+
+		if(dbTitulo.contains(titulo)){
+		    System.out.println("Encontrou!");
+                    Documento resultDoc = new Documento(Integer.parseInt(resultSet.getString("ID")), resultSet.getString("TITULO"),
+                            Integer.parseInt(resultSet.getString("TIPO")), Integer.parseInt(resultSet.getString("NUMACESSOS")),
+                            null, null, null, resultSet.getString("DATAINSERCAO"));
+		    close();
+		}
+
+	    }
+
+            System.out.println("Não encontrou nada!");
+	    close();
+
+	}
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -175,6 +205,5 @@ public class db_controller {
 
 	}
     }
-
 
 }

@@ -6,28 +6,35 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author ra082941
+ * @author ra060210
  */
 @Entity
 @Table(name = "Documento")
 @NamedQueries({
     @NamedQuery(name = "Documento.findAll", query = "SELECT d FROM Documento d"),
     @NamedQuery(name = "Documento.findById", query = "SELECT d FROM Documento d WHERE d.id = :id"),
+    @NamedQuery(name = "Documento.findByTitulo", query = "SELECT d FROM Documento d WHERE d.titulo = :titulo"),
     @NamedQuery(name = "Documento.findByTipo", query = "SELECT d FROM Documento d WHERE d.tipo = :tipo"),
     @NamedQuery(name = "Documento.findByAssunto", query = "SELECT d FROM Documento d WHERE d.assunto = :assunto"),
     @NamedQuery(name = "Documento.findByDescricao", query = "SELECT d FROM Documento d WHERE d.descricao = :descricao"),
@@ -42,7 +49,6 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Documento.findByIp", query = "SELECT d FROM Documento d WHERE d.ip = :ip"),
     @NamedQuery(name = "Documento.findByNavegador", query = "SELECT d FROM Documento d WHERE d.navegador = :navegador"),
     @NamedQuery(name = "Documento.findByDataInsercao", query = "SELECT d FROM Documento d WHERE d.dataInsercao = :dataInsercao"),
-    @NamedQuery(name = "Documento.findByLinguaTransito", query = "SELECT d FROM Documento d WHERE d.linguaTransito = :linguaTransito"),
     @NamedQuery(name = "Documento.findByLocal", query = "SELECT d FROM Documento d WHERE d.local = :local")})
 public class Documento implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -51,6 +57,9 @@ public class Documento implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private Integer id;
+    @Basic(optional = false)
+    @Column(name = "Titulo")
+    private String titulo;
     @Basic(optional = false)
     @Column(name = "Tipo")
     private int tipo;
@@ -86,10 +95,24 @@ public class Documento implements Serializable {
     @Column(name = "DataInsercao")
     @Temporal(TemporalType.DATE)
     private Date dataInsercao;
-    @Column(name = "LinguaTransito")
-    private String linguaTransito;
     @Column(name = "Local")
     private String local;
+    @JoinTable(name = "InteresseUserDoc", joinColumns = {
+        @JoinColumn(name = "IDDoc", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDUser", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Usuario> usuarioCollection;
+    @ManyToMany(mappedBy = "documentoCollection")
+    private Collection<PgmMultilinguistico> pgmMultilinguisticoCollection;
+    @JoinTable(name = "DocResposta", joinColumns = {
+        @JoinColumn(name = "IDDoc2", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDDoc1", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Documento> documentoCollection;
+    @ManyToMany(mappedBy = "documentoCollection")
+    private Collection<Documento> documentoCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
+    private Collection<Comentario> comentarioCollection;
 
     public Documento() {
     }
@@ -98,8 +121,9 @@ public class Documento implements Serializable {
         this.id = id;
     }
 
-    public Documento(Integer id, int tipo, int numAcessos, String so, String ip, String navegador, Date dataInsercao) {
+    public Documento(Integer id, String titulo, int tipo, int numAcessos, String so, String ip, String navegador, Date dataInsercao) {
         this.id = id;
+        this.titulo = titulo;
         this.tipo = tipo;
         this.numAcessos = numAcessos;
         this.so = so;
@@ -114,6 +138,14 @@ public class Documento implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
     public int getTipo() {
@@ -228,20 +260,52 @@ public class Documento implements Serializable {
         this.dataInsercao = dataInsercao;
     }
 
-    public String getLinguaTransito() {
-        return linguaTransito;
-    }
-
-    public void setLinguaTransito(String linguaTransito) {
-        this.linguaTransito = linguaTransito;
-    }
-
     public String getLocal() {
         return local;
     }
 
     public void setLocal(String local) {
         this.local = local;
+    }
+
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
+    public Collection<PgmMultilinguistico> getPgmMultilinguisticoCollection() {
+        return pgmMultilinguisticoCollection;
+    }
+
+    public void setPgmMultilinguisticoCollection(Collection<PgmMultilinguistico> pgmMultilinguisticoCollection) {
+        this.pgmMultilinguisticoCollection = pgmMultilinguisticoCollection;
+    }
+
+    public Collection<Documento> getDocumentoCollection() {
+        return documentoCollection;
+    }
+
+    public void setDocumentoCollection(Collection<Documento> documentoCollection) {
+        this.documentoCollection = documentoCollection;
+    }
+
+    public Collection<Documento> getDocumentoCollection1() {
+        return documentoCollection1;
+    }
+
+    public void setDocumentoCollection1(Collection<Documento> documentoCollection1) {
+        this.documentoCollection1 = documentoCollection1;
+    }
+
+    public Collection<Comentario> getComentarioCollection() {
+        return comentarioCollection;
+    }
+
+    public void setComentarioCollection(Collection<Comentario> comentarioCollection) {
+        this.comentarioCollection = comentarioCollection;
     }
 
     @Override

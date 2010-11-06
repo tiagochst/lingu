@@ -6,22 +6,27 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author ra082941
+ * @author ra060210
  */
 @Entity
 @Table(name = "Comentario")
@@ -29,10 +34,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Comentario.findAll", query = "SELECT c FROM Comentario c"),
     @NamedQuery(name = "Comentario.findById", query = "SELECT c FROM Comentario c WHERE c.id = :id"),
     @NamedQuery(name = "Comentario.findByTexto", query = "SELECT c FROM Comentario c WHERE c.texto = :texto"),
-    @NamedQuery(name = "Comentario.findByData", query = "SELECT c FROM Comentario c WHERE c.data = :data"),
-    @NamedQuery(name = "Comentario.findByIDDoc", query = "SELECT c FROM Comentario c WHERE c.iDDoc = :iDDoc"),
-    @NamedQuery(name = "Comentario.findByIDComResp", query = "SELECT c FROM Comentario c WHERE c.iDComResp = :iDComResp"),
-    @NamedQuery(name = "Comentario.findByIDUser", query = "SELECT c FROM Comentario c WHERE c.iDUser = :iDUser")})
+    @NamedQuery(name = "Comentario.findByData", query = "SELECT c FROM Comentario c WHERE c.data = :data")})
 public class Comentario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,15 +49,17 @@ public class Comentario implements Serializable {
     @Column(name = "Data")
     @Temporal(TemporalType.DATE)
     private Date data;
-    @Basic(optional = false)
-    @Column(name = "IDDoc")
-    private int iDDoc;
-    @Basic(optional = false)
-    @Column(name = "IDComResp")
-    private int iDComResp;
-    @Basic(optional = false)
-    @Column(name = "IDUser")
-    private int iDUser;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "comentario")
+    private Collection<Comentario> comentarioCollection;
+    @JoinColumn(name = "IDComResp", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Comentario comentario;
+    @JoinColumn(name = "IDDoc", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Documento documento;
+    @JoinColumn(name = "IDUser", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
     public Comentario() {
     }
@@ -64,13 +68,10 @@ public class Comentario implements Serializable {
         this.id = id;
     }
 
-    public Comentario(Integer id, String texto, Date data, int iDDoc, int iDComResp, int iDUser) {
+    public Comentario(Integer id, String texto, Date data) {
         this.id = id;
         this.texto = texto;
         this.data = data;
-        this.iDDoc = iDDoc;
-        this.iDComResp = iDComResp;
-        this.iDUser = iDUser;
     }
 
     public Integer getId() {
@@ -97,28 +98,36 @@ public class Comentario implements Serializable {
         this.data = data;
     }
 
-    public int getIDDoc() {
-        return iDDoc;
+    public Collection<Comentario> getComentarioCollection() {
+        return comentarioCollection;
     }
 
-    public void setIDDoc(int iDDoc) {
-        this.iDDoc = iDDoc;
+    public void setComentarioCollection(Collection<Comentario> comentarioCollection) {
+        this.comentarioCollection = comentarioCollection;
     }
 
-    public int getIDComResp() {
-        return iDComResp;
+    public Comentario getComentario() {
+        return comentario;
     }
 
-    public void setIDComResp(int iDComResp) {
-        this.iDComResp = iDComResp;
+    public void setComentario(Comentario comentario) {
+        this.comentario = comentario;
     }
 
-    public int getIDUser() {
-        return iDUser;
+    public Documento getDocumento() {
+        return documento;
     }
 
-    public void setIDUser(int iDUser) {
-        this.iDUser = iDUser;
+    public void setDocumento(Documento documento) {
+        this.documento = documento;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     @Override

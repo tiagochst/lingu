@@ -6,19 +6,21 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
  *
- * @author ra082941
+ * @author ra060210
  */
 @Entity
 @Table(name = "Autor")
@@ -39,6 +41,8 @@ public class Autor implements Serializable {
     private String nome;
     @Column(name = "Pais")
     private String pais;
+    @ManyToMany(mappedBy = "autorCollection")
+    private Collection<PgmMultilinguistico> pgmMultilinguisticoCollection;
 
     public Autor() {
     }
@@ -74,6 +78,14 @@ public class Autor implements Serializable {
 
     public void setPais(String pais) {
         this.pais = pais;
+    }
+
+    public Collection<PgmMultilinguistico> getPgmMultilinguisticoCollection() {
+        return pgmMultilinguisticoCollection;
+    }
+
+    public void setPgmMultilinguisticoCollection(Collection<PgmMultilinguistico> pgmMultilinguisticoCollection) {
+        this.pgmMultilinguisticoCollection = pgmMultilinguisticoCollection;
     }
 
     @Override
