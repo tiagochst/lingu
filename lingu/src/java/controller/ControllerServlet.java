@@ -18,6 +18,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -109,7 +110,7 @@ public class ControllerServlet extends HttpServlet {
 	db_controller db = new db_controller();
         String[] IDProg;
         String address,ag,browser;
-        java.util.Date today = new java.util.Date();
+        Locale defaultLocale = Locale.getDefault();
      
         /*Login 
          * user - Nome usuario
@@ -148,7 +149,6 @@ public class ControllerServlet extends HttpServlet {
         doc.setPalavrasChaves(request.getParameter("Chaves").toString());
         IDProg = request.getParameterValues("MultiLing");
         doc.setIp(request.getLocalAddr());
-        doc.setDataInsercao(today);
         ag = request.getHeader("User-Agent");
         ag = ag.toLowerCase();
         if (ag.contains("msie")) browser = "IE";
@@ -158,7 +158,7 @@ public class ControllerServlet extends HttpServlet {
         else  browser = "Safari";
         doc.setNavegador(browser);
         doc.setSo(System.getProperty("os.name"));
-       
+        doc.setLocal(defaultLocale.getDisplayCountry());
         try {
             db.NewDoc(doc,IDProg);
 	    System.out.println("Documento cadastrado");
