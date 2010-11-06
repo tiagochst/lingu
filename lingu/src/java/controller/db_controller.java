@@ -15,8 +15,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Vector;
+
 
 /**
  *
@@ -125,9 +127,12 @@ public class db_controller {
 	}
     }
  public Boolean NewDoc(Documento doc,String[] IDProg) throws Exception {
- Date date = new Date(0000-00-00);
 
-	String dbsenha;
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        java.sql.Date effect_from = new java.sql.Date(formatter.format(now.getTime()));
+
+        String dbsenha;
 	try {
 
             open();
@@ -146,8 +151,8 @@ public class db_controller {
             preparedStatement.setString(11,doc.getLinguaPalavrasChaves());
             preparedStatement.setString(12,"Linux");
             preparedStatement.setString(13,doc.getIp());
-            preparedStatement.setString(14,"Firefox");
-            preparedStatement.setDate(15, (Date) doc.getDataInsercao());
+            preparedStatement.setString(14,doc.getNavegador());
+            preparedStatement.setDate(15,effect_from);
             preparedStatement.setNull(16, Types.VARCHAR);
             preparedStatement.executeUpdate();
           

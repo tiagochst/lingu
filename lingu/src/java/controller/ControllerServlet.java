@@ -108,7 +108,7 @@ public class ControllerServlet extends HttpServlet {
         Autor autor = new Autor();
 	db_controller db = new db_controller();
         String[] IDProg;
-        String address;
+        String address,ag,browser;
         java.util.Date today = new java.util.Date();
      
         /*Login 
@@ -149,7 +149,16 @@ public class ControllerServlet extends HttpServlet {
         IDProg = request.getParameterValues("MultiLing");
         doc.setIp(request.getLocalAddr());
         doc.setDataInsercao(today);
-
+        ag = request.getHeader("User-Agent");
+        ag = ag.toLowerCase();
+        if (ag.contains("msie")) browser = "IE";
+        else if (ag.contains("opera")) browser = "Opera";
+        else if (ag.contains("chrome")) browser = "Chrome";
+        else if (ag.contains("firefox")) browser = "Firefox";
+        else  browser = "Safari";
+        doc.setNavegador(browser);
+        
+       
         try {
             db.NewDoc(doc,IDProg);
 	    System.out.println("Documento cadastrado");
