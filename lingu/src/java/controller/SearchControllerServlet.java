@@ -9,6 +9,7 @@ import entity.Documento;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Vector;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -87,15 +88,19 @@ public class SearchControllerServlet extends HttpServlet {
 
         try {
             Vector resultDoc = db.SearchTitle(doc);
+            request.setAttribute("Resultado", resultDoc);
             address = "resultado.jsp";
-
 
         } catch (Exception ex) {
 
 	    System.out.println("Erro na busca!");
-            address = "ErroBusca.jsp";
+            address = "erroBusca.jsp";
 
         }
+
+        RequestDispatcher dispatcher =
+	    request.getRequestDispatcher(address);
+	dispatcher.forward(request, response);
     }
 
     /** 
