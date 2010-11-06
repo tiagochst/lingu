@@ -20,6 +20,12 @@
    <FORM action="ControllerServlet" method="POST">
 	  <table>
 	    <tbody>
+                   <tr>
+		<td>Documento</td>
+                <td>
+                    <input type="file" name="Upload" value="" width="2000" />
+                  </td>
+	      </tr>
 	      <tr>
 		<td>Assunto</td>
                 <td><textarea name="Assunto" rows="4" cols="20">
@@ -104,7 +110,7 @@
 
               <tr>
 		<td></td>
-		<td><INPUT type="submit" name="Enviar" value="Cadastrar">
+		<td><INPUT type="submit" name="Upload" value="Upload">
 		</td>
 	      </tr>
   
