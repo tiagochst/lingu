@@ -153,7 +153,7 @@ public class db_controller {
             preparedStatement.setString(13,doc.getIp());
             preparedStatement.setString(14,doc.getNavegador());
             preparedStatement.setDate(15,sqlToday);
-            preparedStatement.setNull(16, Types.VARCHAR);
+            preparedStatement.setString(16,doc.getLocal());
             preparedStatement.executeUpdate();
           
 
