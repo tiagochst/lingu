@@ -30,9 +30,9 @@
 		<td>
 
 		  <SELECT name="Tipo" >
-		    <option>Normal</option>
-		    <option>Universidade</option>
-                    <option>Instituição</option>
+		    <option value="0">Normal</option>
+		    <option value="1">Universidade</option>
+                    <option value="2">Instituição</option>
                </SELECT>
 		</td>
 	      </tr>
@@ -43,17 +43,18 @@
 	      </tr>
 	      <tr>
 		<td>País</td>
-		<td> <INPUT type="text" name="pais" size="20" maxlength="60" alt="RG">
+		<td> <INPUT type="text" name="Pais" size="20" maxlength="60" alt="Pais do utilizador">
 		</td>
 	      </tr>
 	      <tr>
-		<td>Pais</td>
-		<td>  <INPUT type="text" name="Pais" size="20" maxlength="15" alt="Pais de nascimento">
+		<td>Lingua </td>
+		<td>  <INPUT type="text" name="Lingua" size="20" maxlength="15" alt="Lingua do utilizador">
 		</td>
 	      </tr>
 <tr>
-          <td>  <strong>Selecione uma palestra:</strong></td><td>
+          <td>  <strong>Rede de trabalho:</strong></td><td>
     <select name="idRede">
+             <option value="1">Sem rede</option>
         <c:forEach var="row" items="${rede.rows}">
             <option value="${row.ID}">${row.nome}</option>
         </c:forEach>

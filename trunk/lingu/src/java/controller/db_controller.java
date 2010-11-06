@@ -5,6 +5,7 @@
 
 package controller;
 
+import entity.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -32,29 +33,26 @@ public class db_controller {
     private PreparedStatement preparedStatement = null;
     private ResultSet resultSet = null;
 
-public Boolean NewUsr(String nome,String senha,String tipo,String email,
-        String rg,String pais, String dia,String mes,String  ano)
+public Boolean NewUsr(Usuario user)
 	throws Exception {
 	String dbsenha;
 	try {
             open();
         preparedStatement = connect
-	.prepareStatement("insert into  sgct.USUARIO values (default, ?, ?, ?, ? , ?, ?,?)");
+	.prepareStatement("insert into  mc536user16.Usuario values (default, ?, ?, ?, ? , ?, ?,?)");
 		// "myuser, webpage, datum, summery, COMMENTS from feedback.COMMENTS");
 			// Parameters start with 1
-			preparedStatement.setString(1,nome );
-			preparedStatement.setString(2,senha);
-			preparedStatement.setString(3,tipo);
-			preparedStatement.setString(6, ano+"-"+mes+"-"+dia);
-			preparedStatement.setString(4,email);
-			preparedStatement.setString(5, rg);
-			preparedStatement.setString(7, pais);
-
+			if(user.getIDRede()!=0){
+                             preparedStatement.setInt(7,user.getIDRede() );
+                        }
+                        preparedStatement.setString(3,user.getPais());
+			preparedStatement.setString(6,user.getSenha());
+			preparedStatement.setString(1,user.getNome());
+			preparedStatement.setString(4,user.getLingua());
+			preparedStatement.setString(5,user.getEmail());
+                        preparedStatement.setInt(2,user.getTipo());
                         preparedStatement.executeUpdate();
-
-	    // Result set get the result of the SQL query
-	    resultSet = statement
-		.executeQuery("insert * from sgct.USUARIO where NOME='"+nome+"'");
+	 
 	} catch (Exception e) {
 	    throw e;
 	} finally {

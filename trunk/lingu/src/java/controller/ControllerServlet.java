@@ -6,6 +6,7 @@
 package controller;
 
 import controller.db_controller;
+import entity.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -96,7 +97,7 @@ public class ControllerServlet extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
-
+        Usuario user = new Usuario();
 	db_controller db = new db_controller();
         String nome,senha; /*Login cadastro*/
 	String tipo,email,rg,pais,dia,mes,ano; /*Cadastro*/
@@ -126,26 +127,18 @@ public class ControllerServlet extends HttpServlet {
          *
          */
     else if(request.getParameter("Nome") != null){
-        nome = request.getParameter("Nome").toString();
-	senha = request.getParameter("Senha").toString();
-	tipo = request.getParameter("Tipo").toString();
-	email = request.getParameter("Email").toString();
-	rg = request.getParameter("RG").toString();
-	pais = request.getParameter("Pais").toString();
-	dia = request.getParameter("Dia").toString();
-	mes = request.getParameter("Mes").toString();
-	ano = request.getParameter("Ano").toString();
-
+        user.setNome(request.getParameter("Nome").toString());
+	user.setSenha(request.getParameter("Senha").toString());
+	user.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
+	user.setEmail(request.getParameter("Email").toString());
+	user.setPais(request.getParameter("Pais").toString()) ;
+        user.setLingua(request.getParameter("Lingua").toString());
+        user.setIDRede(Integer.parseInt(request.getParameter("idRede")));
    	try {
-            db.NewUsr(nome,senha,tipo,email,rg,pais,dia,mes,ano);
+            db.NewUsr(user);
 	    System.out.println("Usuario cadastrado");
-    	    if(tipo.equals("Palestrante")){
-            address = "AreaPalestrante.jsp";
-            }
-             else{
-                   address = "AreaUsuario.jsp";
-            }
-
+    	    address = "AreaUsuario.jsp";
+           
 
         } catch (Exception ex) {
 
