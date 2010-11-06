@@ -1,3 +1,10 @@
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+
+
+    <sql:query var="rede" dataSource="jdbc/mc536">
+        SELECT ID,NOME FROM RedeDeTrabalho
+    </sql:query>
+
 
 	<div id="page">
 		<div id="content">
@@ -10,12 +17,12 @@
 	    <tbody>
 	      <tr>
 		<td>Nome</td>
-		<td>  <INPUT type="text" name="Nome" size="20" maxlength="50" alt="Nome Completo">
+		<td>  <INPUT type="text" name="Nome" size="20" maxlength="60" alt="Nome Completo">
 		</td>
 	      </tr>
 	      <tr>
 		<td>Senha</td>
-		<td>  <INPUT type="password" name="Senha" size="20" maxlength="50" alt="Senha de acesso">
+		<td>  <INPUT type="password" name="Senha" size="20" maxlength="12" alt="Senha de acesso">
 		</td>
 	      </tr>
 	      <tr>
@@ -23,9 +30,10 @@
 		<td>
 
 		  <SELECT name="Tipo" >
-		    <option>Palestrante</option>
-		    <option>Participante</option>
-		  </SELECT>
+		    <option>Normal</option>
+		    <option>Universidade</option>
+                    <option>Instituição</option>
+               </SELECT>
 		</td>
 	      </tr>
 	      <tr>
@@ -34,16 +42,8 @@
 		</td>
 	      </tr>
 	      <tr>
-		<td>RG</td>
-		<td> <INPUT type="text" name="RG" size="20" maxlength="15" alt="RG">
-		</td>
-	      </tr>
-	      <tr>
-		<td>Data de Nascimento</td>
-		<td>
-		  <INPUT type="text" name="Dia" size="2" maxlength="2" alt="Dia de nascimento">/
-		  <INPUT type="text" name="Mes" size="2" maxlength="2" alt="Mes de nascimento">/
-		  <INPUT type="text" name="Ano" size="4" maxlength="4" alt="Ano de nascimento">
+		<td>País</td>
+		<td> <INPUT type="text" name="pais" size="20" maxlength="60" alt="RG">
 		</td>
 	      </tr>
 	      <tr>
@@ -51,12 +51,22 @@
 		<td>  <INPUT type="text" name="Pais" size="20" maxlength="15" alt="Pais de nascimento">
 		</td>
 	      </tr>
-	      <tr>
+<tr>
+          <td>  <strong>Selecione uma palestra:</strong></td><td>
+    <select name="idRede">
+        <c:forEach var="row" items="${rede.rows}">
+            <option value="${row.ID}">${row.nome}</option>
+        </c:forEach>
+    </select>
+        </td>
+        </tr>
+
+              <tr>
 		<td></td>
 		<td><INPUT type="submit" name="Enviar" value="Cadastrar">
 		</td>
 	      </tr>
-
+  
 	    </tbody>
 	  </table>
 	</FORM>
