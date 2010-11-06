@@ -235,6 +235,10 @@ a:hover {
 	text-align: justify;
 }
 
+.post .entry ul ul {
+        line-height: 350px;
+}
+
 .post .meta {
 	overflow: hidden;
 	padding-top: 10px;

@@ -5,22 +5,12 @@
         <div class="post">
             <h3 class="title"><a href="#">Busca</a></h3>
             <div class="entry">
-                <table>
-                    <tbody>
                         <c:forEach var="res" items="${Resultado}">
-                            <tr>
-                                <td>
-                                    <h2>${res.titulo}</h2>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <h4>${res.assunto}</h4>
-                                </td>
-                            </tr>
+                        <h2>${res.titulo}</h2>
+                        <ul>
+                            <li><a href="#">${res.assunto}</a></li>
+                        </ul>
                         </c:forEach>
-                    </tbody>
-                </table>
             </div>
 	</div>
     </div>
