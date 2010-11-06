@@ -2,8 +2,7 @@
 	<div id="page">
 		<div id="content">
 		<div class="post">
-				<h2 class="title"><a href="#">Lorem ipsum sed aliquam</a></h2>
-				<p class="meta"><span class="author"><a href="#">Someone</a></span> <span class="date">July 07, 2010</span>&nbsp;<span class="links"><a href="#" title="">Comments</a></span></p>
+				<h2 class="title"><a href="#">Cadastro de Usuário</a></h2>
 				<div class="entry">
 
    <FORM action="ControllerServlet" method="POST">
