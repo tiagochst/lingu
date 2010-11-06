@@ -133,9 +133,9 @@ public class ControllerServlet extends HttpServlet {
         /*Cadastro
          *
          */
-    else if(request.getParameter("Nome") != null){
+    else if(request.getParameter("Upload") != null){
         doc.setAssunto(request.getParameter("Assunto").toString());
-        doc.setDescricao(request.getParameter("Descrição").toString());
+        doc.setDescricao(request.getParameter("Descricao").toString());
 	doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
         doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
         doc.setPais(request.getParameter("Pais").toString()) ;
@@ -158,7 +158,7 @@ public class ControllerServlet extends HttpServlet {
             Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-        else if(request.getParameter("Upload") != null){
+        else if(request.getParameter("Nome") != null){
         RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
         user.setNome(request.getParameter("Nome").toString());
 	user.setSenha(request.getParameter("Senha").toString());
