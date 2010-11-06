@@ -26,7 +26,7 @@ import java.sql.SQLWarning;
  *
  * @author Tiago
  */
-public class jdbc {
+public class db_controller {
     private Connection connect = null;
     private Statement statement = null;
     private PreparedStatement preparedStatement = null;
