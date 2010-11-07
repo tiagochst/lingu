@@ -59,18 +59,18 @@ public class db_controller {
 		    return true;
 		}
     }
-    public Boolean IsUsr(String ID,String senha) throws Exception {
+    public Boolean IsUsr(String email,String senha) throws Exception {
 
 	String dbsenha;
 	try {
             open();
-	    resultSet = statement.executeQuery("select * from dbmc536b16.USUARIO where ID='"+ID+"'");
+	    resultSet = statement.executeQuery("select * from dbmc536b16.Usuario where Email='"+email+"'");
 	} catch (Exception e) {
 	    throw e;
 	} finally {
 	    while (resultSet.next()) {
-                dbsenha = resultSet.getString("SENHA");
-                System.out.println(dbsenha);
+                dbsenha = resultSet.getString("Senha");
+                System.out.println("Senha do usuário: " + dbsenha);
 
 		if(dbsenha.equals(senha)){
 		    System.out.println("User OK.");

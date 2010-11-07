@@ -47,8 +47,8 @@ public class ControllerServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
-	String firstName = request.getParameter("user").toString();
-        String surname = request.getParameter("password").toString();
+	String firstName = request.getParameter("Email").toString();
+        String surname = request.getParameter("Senha").toString();
 
         try {
             out.println("<html>");
@@ -113,24 +113,31 @@ public class ControllerServlet extends HttpServlet {
         Locale defaultLocale = Locale.getDefault();
      
         /*Login 
-         * user - Nome usuario
-         * password - Senha usuario
+         * Email - E-mail do usuário
+         * Senha - Senha do usuário
          */
-        if(request.getParameter("user") != null){
-           user.setNome(request.getParameter("user").toString());
-	   user.setSenha(request.getParameter("password").toString());
+        if(request.getParameter("Senha") != null){
+           user.setEmail(request.getParameter("Email").toString());
+	   user.setSenha(request.getParameter("Senha").toString());
 
 	try {
-            db.IsUsr(user.getNome(),user.getSenha());
-	    System.out.println("Usuario verificado");
+            if (db.IsUsr(user.getEmail(), user.getSenha())) {
+                System.out.println("Usuário aceito!");
+                address = "index.jsp";
+            }
+            else {
+                System.out.println("Erro verificação usuário!");
+                address = "erroLogin.jsp";
+            }
 
         } catch (Exception ex) {
-
-	    System.out.println("Erro verificação usuario");
+	    System.out.println("Erro verificação usuário!");
             Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            address = "erroLogin.jsp";
         }
-
-        processRequest(request, response);
+           
+        RequestDispatcher dispatcher = request.getRequestDispatcher(address);
+        dispatcher.forward(request, response);
 
     }
         /*Cadastro

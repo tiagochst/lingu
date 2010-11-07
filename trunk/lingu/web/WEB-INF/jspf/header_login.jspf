@@ -17,10 +17,10 @@
 			</div>
 			<div id="menu">
 				<ul>
-					<li><a href="#">Home</a></li>
+					<li><a href="index.jsp">Home</a></li>
 					<li><a href="upload.jsp">Upload</a></li>
-					<li class="current_page_item"><a href="#">Login</a></li>
-					<li><a href="#">About</a></li>
+					<li class="current_page_item"><a href="login.jsp">Login</a></li>
+					<li><a href="about.jsp">About</a></li>
 				</ul>
 			</div>
 		</div>
