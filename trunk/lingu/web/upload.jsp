@@ -20,13 +20,13 @@
       <div class="entry">
 	
 	
-	<FORM action="ControllerServlet" method="POST">
+	<FORM action="ControllerServlet" enctype="multipart/form-data"  method="POST">
 	  <table>
 	    <tbody>
               <tr>
 		<td>Documento</td>
                 <td>
-                  <input type="file" name="Upload" value="" width="2000" />
+                  <input type="file" name="File" value="" width="2000" />
                 </td>
 	      </tr>
               <tr>
