@@ -1,6 +1,10 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * Controlador geral
+ * Extends - Conecta ao banco de dados
+ * Funções: Upload de documento
+ * Método post:
+ * - Cadastro de documento
+ * - Cadastro de usuário
  */
 
 package controller;
@@ -11,6 +15,8 @@ import entity.Documento;
 import entity.PgmMultilinguistico;
 import entity.RedeDeTrabalho;
 import entity.Usuario;
+import java.io.File;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,11 +24,18 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Iterator;
+import java.util.List;
+
 import java.util.Locale;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 /**
  *
@@ -111,6 +124,7 @@ public class ControllerServlet extends HttpServlet {
         String[] IDProg,IDAut;
         String address,ag,browser;
         Locale defaultLocale = Locale.getDefault();
+
      
         /*Login 
          * Email - E-mail do usuário
@@ -130,7 +144,7 @@ public class ControllerServlet extends HttpServlet {
                 address = "erroLogin.jsp";
             }
 
-        } catch (Exception ex) {
+	    } catch (Exception ex) {
 	    System.out.println("Erro verificação usuário!");
             Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             address = "erroLogin.jsp";
@@ -139,74 +153,117 @@ public class ControllerServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
 
-    }
-        /*Cadastro
-         *
+	}
+        /* 
+	 * Função: Cadastro de Documento
+         * Insere parametros do form em um objeto
+	 * a ser passado ao BD
+	 * Include:
+	 * - db.NewDoc
+	 * - uploadFile
          */
-    else if(request.getParameter("Upload") != null){
-        doc.setAssunto(request.getParameter("Assunto").toString());
-        doc.setDescricao(request.getParameter("Descricao").toString());
-	doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
-        doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
-        doc.setPais(request.getParameter("Pais").toString()) ;
-        doc.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
-	doc.setLinguaPalavrasChaves(request.getParameter("LinguaChave").toString());
-        doc.setLinguaDescricao(request.getParameter("LinguaDescricao").toString());
-        doc.setTitulo(request.getParameter("Titulo").toString());
-        doc.setPalavrasChaves(request.getParameter("Chaves").toString());
-        IDProg = request.getParameterValues("MultiLing");
-        doc.setIp(request.getLocalAddr());
-        ag = request.getHeader("User-Agent");
-        ag = ag.toLowerCase();
-        if (ag.contains("msie")) browser = "IE";
-        else if (ag.contains("opera")) browser = "Opera";
-        else if (ag.contains("chrome")) browser = "Chrome";
-        else if (ag.contains("firefox")) browser = "Firefox";
-        else  browser = "Safari";
-        doc.setNavegador(browser);
-        doc.setSo(System.getProperty("os.name"));
-        doc.setLocal(defaultLocale.getDisplayCountry());
-        IDAut = request.getParameterValues("Autor");
+	else if(request.getParameter("Upload")!=null){
+            doc.setAssunto(request.getParameter("Assunto").toString());
+	    doc.setDescricao(request.getParameter("Descricao").toString());
+	    doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
+	    doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
+	    doc.setPais(request.getParameter("Pais").toString()) ;
+	    doc.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
+	    doc.setLinguaPalavrasChaves(request.getParameter("LinguaChave").toString());
+	    doc.setLinguaDescricao(request.getParameter("LinguaDescricao").toString());
+	    doc.setTitulo(request.getParameter("Titulo").toString());
+	    doc.setPalavrasChaves(request.getParameter("Chaves").toString());
+	    IDProg = request.getParameterValues("MultiLing");
+	    doc.setIp(request.getLocalAddr());
+	    ag = request.getHeader("User-Agent");
+	    ag = ag.toLowerCase();
+	    if (ag.contains("msie")) browser = "IE";
+	    else if (ag.contains("opera")) browser = "Opera";
+	    else if (ag.contains("chrome")) browser = "Chrome";
+	    else if (ag.contains("firefox")) browser = "Firefox";
+	    else  browser = "Safari";
+	    doc.setNavegador(browser);
+	    doc.setSo(System.getProperty("os.name"));
+	    doc.setLocal(defaultLocale.getDisplayCountry());
+	    IDAut = request.getParameterValues("Autor");
 
 
-         try {
-            db.NewDoc(doc,IDProg,IDAut);
-	    System.out.println("Documento cadastrado");
-    	    address = "index.jsp";
-           
-
-        } catch (Exception ex) {
-
-	    System.out.println("Erro cadastro usuario");
-             address = "ErroCadastro.jsp";
-            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    else if(request.getParameter("Nome") != null){
-        RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
-        user.setNome(request.getParameter("Nome").toString());
-	user.setSenha(request.getParameter("Senha").toString());
-	user.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
-	user.setEmail(request.getParameter("Email").toString());
-	user.setPais(request.getParameter("Pais").toString()) ;
-        user.setLingua(request.getParameter("Lingua").toString());
-        user.setRedeDeTrabalho(rede);
-   	try {
-            db.NewUsr(user);
-	    System.out.println("Usuario cadastrado");
-    	    address = "index.jsp";
-
-
-        } catch (Exception ex) {
-
-	    System.out.println("Erro cadastro usuario");
-             address = "ErroCadastro.jsp";
-            Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
+	    try {
+		doc.setId(db.NewDoc(doc,IDProg,IDAut));
+             
+		System.out.println("Documento cadastrado");
+		address = "index.jsp";
+            // Check that we have a file upload request
+if( ServletFileUpload.isMultipartContent(request)){
+// Create a factory for disk-based file items
+       System.out.println("Entrou");
 	
-	RequestDispatcher dispatcher =
-	    request.getRequestDispatcher(address);
-	dispatcher.forward(request, response);
+DiskFileItemFactory factory = new DiskFileItemFactory();
+
+// Set factory constraints
+factory.setSizeThreshold(4096);
+factory.setRepository(new File("/tmp"));
+
+// Create a new file upload handler
+ServletFileUpload upload = new ServletFileUpload(factory);
+
+// Set overall request size constraint
+upload.setSizeMax(1000000);
+
+// Parse the request
+List  items = null;
+                try {
+                    items = upload.parseRequest(request);
+                } catch (FileUploadException ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+ Iterator i = items.iterator();
+        FileItem fi = (FileItem)i.next();
+        // filename on the client
+        String contextRoot = getServletContext().getRealPath("/");
+
+        String fileName = fi.getName();
+                try {
+                    fi.write(new File(contextRoot + "upload/", fileName));
+                } catch (Exception ex) {
+                    Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+}
+
+	    } catch (Exception ex) {
+
+		System.out.println("Erro cadastro usuario");
+		address = "ErroCadastro.jsp";
+		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	else if(request.getParameter("Nome") != null){
+	    RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
+	    user.setNome(request.getParameter("Nome").toString());
+	    user.setSenha(request.getParameter("Senha").toString());
+	    user.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
+	    user.setEmail(request.getParameter("Email").toString());
+	    user.setPais(request.getParameter("Pais").toString()) ;
+	    user.setLingua(request.getParameter("Lingua").toString());
+	    user.setRedeDeTrabalho(rede);
+	    try {
+		db.NewUsr(user);
+		System.out.println("Usuario cadastrado");
+		address = "index.jsp";
+
+
+	    } catch (Exception ex) {
+
+		System.out.println("Erro cadastro usuario");
+		address = "ErroCadastro.jsp";
+		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	
+	    RequestDispatcher dispatcher =
+		request.getRequestDispatcher(address);
+	    dispatcher.forward(request, response);
 
 
         }
@@ -220,6 +277,13 @@ public class ControllerServlet extends HttpServlet {
 	}else return true;
 
     }
+
+    /*
+     * Função de upload de documento
+     * Descrição: Insere arquivo de upload na pasta build/upload 
+     * Parametros: nenhum
+     * Saida: Boolean - verdadeiro se inserido com sucesso,falso caso contrario
+     */
 
 
 

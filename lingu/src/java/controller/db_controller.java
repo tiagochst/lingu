@@ -4,7 +4,6 @@
  */
 
 package controller;
-import entity.Autor;
 import entity.Documento;
 import entity.Usuario;
 import java.sql.Connection;
@@ -14,11 +13,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Vector;
+
 
 
 /**
@@ -128,12 +124,12 @@ public class db_controller {
 
 	}
     }
- public Boolean NewDoc(Documento doc,String[] IDProg,String[] IDAutor) throws Exception {
+ public Integer NewDoc(Documento doc,String[] IDProg,String[] IDAutor) throws Exception {
 
        java.util.Date today = new java.util.Date();
        java.sql.Date sqlToday = new java.sql.Date(today.getTime());
         String dbsenha;
-        Integer ID;
+        Integer ID = null;
 	try {
 
             open();
@@ -175,7 +171,8 @@ public class db_controller {
 	    throw e;
 	} finally {
 	 	    close();
-		    return true;
+		    return ID;
+
 		}
     }
     private void writeMetaData(ResultSet resultSet) throws SQLException {
