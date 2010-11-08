@@ -20,111 +20,16 @@
       <div class="entry">
 	
 	
-	<FORM action="ControllerServlet" enctype="multipart/form-data"  method="POST">
+	<FORM action="ControllerServlet" ENCTYPE="multipart/form-data" method="POST">
 	  <table>
 	    <tbody>
               <tr>
 		<td>Documento</td>
                 <td>
-                  <input type="file" name="File" value="" width="2000" />
+                  <input type="file" name="File" value="" />
                 </td>
 	      </tr>
-              <tr>
-		<td>Titulo</td>
-		<td> <INPUT type="text" name="Titulo" size="20" maxlength="60" alt="Lingua da descrição">
-		</td>
-	      </tr>
-	      <tr>
-		<td>Assunto</td>
-                <td><textarea name="Assunto" rows="4" cols="20">
-                  </textarea>
-                </td>
-	      </tr>
-	      <tr>
-		<td>Descrição</td>
-                <td><textarea name="Descricao" rows="4" cols="20">
-                  </textarea>
-                </td>
-	      </tr>
-	      <tr>
-		<td>Palavras-chave</td>
-                <td><textarea name="Chaves" rows="4" cols="20">
-                  </textarea>
-                </td>
-	      </tr>
-	      <tr>
-		<td>Tipo</td>
-		<td>
 
-		  <SELECT name="Tipo" >
-		    <option value="0">Artigo jornalístico</option>
-		    <option value="1">Artigo científico</option>
-                    <option value="2">Texto reinvidicatório</option>
-                    <option value="3">Acordos</option>
-                    <option value="4">Acordos</option>
-                    <option value="5">Declarações</option>
-                    <option value="6">Sugestões</option>
-                    <option value="7">Outros</option>
-		  </SELECT>
-		</td>
-	      </tr>
-	      <tr>
-		<td>Língua descrição</td>
-		<td> <INPUT type="text" name="LinguaDescricao" size="20" maxlength="30" alt="Lingua da descrição">
-		</td>
-	      </tr>
-	      <tr>
-		<td>País</td>
-		<td> <INPUT type="text" name="Pais" size="20" maxlength="60" alt="Pais do utilizador">
-		</td>
-	      </tr>
-	      <tr>
-		<td>Lingua Oficial </td>
-		<td>  <INPUT type="text" name="LinguaOficial" size="20" maxlength="30" alt="Lingua oficial">
-		</td>
-	      </tr>
-              <tr>
-		<td>Lingua Utilizador </td>
-		<td>  <INPUT type="text" name="LinguaUtilizador" size="20" maxlength="30" alt="Lingua do utilizador">
-		</td>
-	      </tr>
-              <tr>
-		<td>Lingua Palavra chaves </td>
-		<td>  <INPUT type="text" name="LinguaChave" size="20" maxlength="30" alt="Lingua das palavras chaves">
-		</td>
-	      </tr>
-              <%--<tr>
-		 <td>  Documento resposta:</td><td>
-		  <select name="DocResp">
-		    <option value="0">Não é resposta</option>
-		    <c:forEach var="row" items="${doc.rows}">
-		      <option value="${row.ID}">${row.Titulo}</option>
-		    </c:forEach>
-		  </select>
-              	 </td>
-	      </tr>
-              --%>
-              <tr>
-		<td>  Programa multilinguismo:</td><td>
-                  <select name="MultiLing" multiple size="5">
-		    <option value="0" selected>Nenhum programa</option>
-		    <c:forEach var="row" items="${prog.rows}">
-		      <option value="${row.ID}">${row.Titulo}</option>
-		    </c:forEach>
-		  </select>
-              	</td>
-	      </tr>
-                          <tr>
-		<td> Autor:</td><td>
-                  <select name="Autor" multiple size="5">
-		    <option value="0" selected>Anônimo</option>
-		    <c:forEach var="row" items="${aut.rows}">
-		      <option value="${row.ID}">${row.Nome}</option>
-		    </c:forEach>
-		  </select>
-              	</td>
-	      </tr>
-      
               <tr>
 		<td></td>
 		<td><INPUT type="submit" name="Upload" value="Upload">
