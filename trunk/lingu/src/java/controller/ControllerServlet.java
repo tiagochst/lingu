@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 
@@ -36,7 +37,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-
+import org.apache.struts.upload.*;
 /**
  *
  * @author Tiago
@@ -122,10 +123,9 @@ public class ControllerServlet extends HttpServlet {
         Autor autor = new Autor();
 	db_controller db = new db_controller();
         String[] IDProg,IDAut;
-        String address,ag,browser;
+        String address = null,ag,browser;
         Locale defaultLocale = Locale.getDefault();
 
-     
         /*Login 
          * Email - E-mail do usuário
          * Senha - Senha do usuário
@@ -160,9 +160,8 @@ public class ControllerServlet extends HttpServlet {
 	 * a ser passado ao BD
 	 * Include:
 	 * - db.NewDoc
-	 * - uploadFile
-         */
-	else if(request.getParameter("Upload")!=null){
+	*/
+	else if(request.getParameter("LinguaOficial")!=null){
             doc.setAssunto(request.getParameter("Assunto").toString());
 	    doc.setDescricao(request.getParameter("Descricao").toString());
 	    doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
@@ -193,11 +192,80 @@ public class ControllerServlet extends HttpServlet {
              
 		System.out.println("Documento cadastrado");
 		address = "index.jsp";
-            // Check that we have a file upload request
-if( ServletFileUpload.isMultipartContent(request)){
-// Create a factory for disk-based file items
-       System.out.println("Entrou");
+
+	    } catch (Exception ex) {
+
+		System.out.println("Erro cadastro usuario");
+		address = "ErroCadastro.jsp";
+		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	else if(request.getParameter("Nome") != null){
+	    RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
+	    user.setNome(request.getParameter("Nome").toString());
+	    user.setSenha(request.getParameter("Senha").toString());
+	    user.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
+	    user.setEmail(request.getParameter("Email").toString());
+	    user.setPais(request.getParameter("Pais").toString()) ;
+	    user.setLingua(request.getParameter("Lingua").toString());
+	    user.setRedeDeTrabalho(rede);
+	    try {
+		db.NewUsr(user);
+		System.out.println("Usuario cadastrado");
+		address = "index.jsp";
+
+
+	    } catch (Exception ex) {
+
+		System.out.println("Erro cadastro usuario");
+		address = "ErroCadastro.jsp";
+		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+
 	
+
+
+        }
+               else if( ServletFileUpload.isMultipartContent(request))
+        {
+            fileUpload(request);
+            address = "uploadinfo.jsp";
+        }
+            RequestDispatcher dispatcher =
+		request.getRequestDispatcher(address);
+	    dispatcher.forward(request, response);
+    }
+
+
+    public boolean confereErroLogin(String usuario, String senha){
+
+	if((usuario.equals(loginUsuario)) && (senha.equals(senhaUsuario))){
+	    return false;
+	}else return true;
+
+    }
+
+    /*
+     * Função de upload de documento
+     * Descrição: Insere arquivo de upload na pasta build/upload 
+     * Parametros: nenhum
+     * Saida: Boolean - verdadeiro se inserido com sucesso,falso caso contrario
+     */
+
+
+
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+	public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    private boolean fileUpload(HttpServletRequest request){
+            if( ServletFileUpload.isMultipartContent(request)){
+// Create a factory for disk-based file items
 DiskFileItemFactory factory = new DiskFileItemFactory();
 
 // Set factory constraints
@@ -229,73 +297,9 @@ List  items = null;
                 } catch (Exception ex) {
                     Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
-}
-
-	    } catch (Exception ex) {
-
-		System.out.println("Erro cadastro usuario");
-		address = "ErroCadastro.jsp";
-		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	}
-	else if(request.getParameter("Nome") != null){
-	    RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
-	    user.setNome(request.getParameter("Nome").toString());
-	    user.setSenha(request.getParameter("Senha").toString());
-	    user.setTipo(Integer.parseInt(request.getParameter("Tipo"))) ;
-	    user.setEmail(request.getParameter("Email").toString());
-	    user.setPais(request.getParameter("Pais").toString()) ;
-	    user.setLingua(request.getParameter("Lingua").toString());
-	    user.setRedeDeTrabalho(rede);
-	    try {
-		db.NewUsr(user);
-		System.out.println("Usuario cadastrado");
-		address = "index.jsp";
-
-
-	    } catch (Exception ex) {
-
-		System.out.println("Erro cadastro usuario");
-		address = "ErroCadastro.jsp";
-		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-	    }
-	
-	    RequestDispatcher dispatcher =
-		request.getRequestDispatcher(address);
-	    dispatcher.forward(request, response);
-
-
-        }
-    }
-
-
-    public boolean confereErroLogin(String usuario, String senha){
-
-	if((usuario.equals(loginUsuario)) && (senha.equals(senhaUsuario))){
-	    return false;
-	}else return true;
-
-    }
-
-    /*
-     * Função de upload de documento
-     * Descrição: Insere arquivo de upload na pasta build/upload 
-     * Parametros: nenhum
-     * Saida: Boolean - verdadeiro se inserido com sucesso,falso caso contrario
-     */
-
-
-
-    /** 
-     * Returns a short description of the servlet.
-     * @return a String containing servlet description
-     */
-    @Override
-	public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     
-
+ 
+}
+   return true;
+}
 }
