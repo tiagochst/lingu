@@ -47,7 +47,7 @@ public class ControllerServlet extends HttpServlet {
 
     String loginUsuario = "mc436";
     String senhaUsuario = "mc436";
-
+    File newFile=null;
 
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -189,7 +189,12 @@ public class ControllerServlet extends HttpServlet {
 
 	    try {
 		doc.setId(db.NewDoc(doc,IDProg,IDAut));
-             
+
+                   String contextRoot = getServletContext().getRealPath("/");
+                int dotPos = newFile.getName().lastIndexOf(".");
+                 String extension = newFile.getName().substring(dotPos);
+             newFile.renameTo(new File(contextRoot+ "upload/"+doc.getId()+extension));
+
 		System.out.println("Documento cadastrado");
 		address = "index.jsp";
 
@@ -293,7 +298,8 @@ List  items = null;
 
         String fileName = fi.getName();
                 try {
-                    fi.write(new File(contextRoot + "upload/", fileName));
+                    newFile = new File(contextRoot + "upload/", fileName);
+                    fi.write(newFile);
                 } catch (Exception ex) {
                     Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
                 }
