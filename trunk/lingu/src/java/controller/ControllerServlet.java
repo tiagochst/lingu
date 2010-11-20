@@ -211,7 +211,7 @@ public class ControllerServlet extends HttpServlet {
 	else if(request.getParameter("Nome") != null){
 	    RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
 	    user.setNome(request.getParameter("Nome").toString());
-	    user.setSenha(request.getParameter("Senha").toString());
+	    user.setSenha(request.getParameter("SenhaUsr").toString());
 	    user.setTipo(0) ;
 	    user.setEmail(request.getParameter("Email").toString());
 	    user.setPais(request.getParameter("Pais").toString()) ;
