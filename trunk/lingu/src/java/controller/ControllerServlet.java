@@ -203,23 +203,24 @@ public class ControllerServlet extends HttpServlet {
 
             } catch (Exception ex) {
 
-                System.out.println("Erro cadastro usuario");
-                address = "ErroCadastro.jsp";
-                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else if (request.getParameter("Nome") != null) {
-            RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
-            user.setNome(request.getParameter("Nome").toString());
-            user.setSenha(request.getParameter("Senha").toString());
-            user.setTipo(Integer.parseInt(request.getParameter("Tipo")));
-            user.setEmail(request.getParameter("Email").toString());
-            user.setPais(request.getParameter("Pais").toString());
-            user.setLingua(request.getParameter("Lingua").toString());
-            user.setRedeDeTrabalho(rede);
-            try {
-                db.NewUsr(user);
-                System.out.println("Usuario cadastrado");
-                address = "index.jsp";
+		System.out.println("Erro cadastro usuario");
+		address = "ErroCadastro.jsp";
+		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+	    }
+	}
+	else if(request.getParameter("Nome") != null){
+	    RedeDeTrabalho rede = new RedeDeTrabalho(Integer.parseInt(request.getParameter("idRede")));
+	    user.setNome(request.getParameter("Nome").toString());
+	    user.setSenha(request.getParameter("Senha").toString());
+	    user.setTipo(0) ;
+	    user.setEmail(request.getParameter("Email").toString());
+	    user.setPais(request.getParameter("Pais").toString()) ;
+	    user.setLingua(request.getParameter("Lingua").toString());
+	    user.setRedeDeTrabalho(rede);
+	    try {
+		db.NewUsr(user);
+		System.out.println("Usuario cadastrado");
+		address = "index.jsp";
 
 
             } catch (Exception ex) {
@@ -264,7 +265,20 @@ public class ControllerServlet extends HttpServlet {
 
             address = "cadastro.jsp";
         }
+        else if (request.getParameter("NomeProg") != null) {
 
+            prog.setNome(request.getParameter("NomeProg").toString());
+            prog.setLingua(request.getParameter("Lingua").toString());
+            prog.setDescricao(request.getParameter("Descricao").toString());
+
+            try {
+                db.NewProg(prog);
+            } catch (Exception ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            address = "index.jsp";
+        }
 
 
 
