@@ -7,6 +7,21 @@
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>Lingu</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" />
+<script type="text/javascript">
+    function showForm() {
+        var form = document.getElementById("commentForm");
+        form.style.display = "block";
+
+        return false;
+    }
+
+    function hideForm() {
+        var form = document.getElementById("commentForm");
+        form.style.display = "none";
+
+        return false;
+    }
+</script>
 </head>
 <body>
 <div id="wrapper">
