@@ -108,8 +108,7 @@
                           <tr>
 		<td> Autor:</td><td>
                   <select name="Autor" multiple size="5">
-		    <option value="0" selected>Anônimo</option>
-		    <c:forEach var="row" items="${aut.rows}">
+		      <c:forEach var="row" items="${aut.rows}">
 		      <option value="${row.ID}">${row.Nome}</option>
 		    </c:forEach>
 		  </select>
