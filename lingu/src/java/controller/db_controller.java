@@ -10,13 +10,15 @@ import entity.PgmMultilinguistico;
 import entity.Usuario;
 import entity.RedeDeTrabalho;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Types;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Vector;
 
 /**
@@ -63,13 +65,17 @@ public class db_controller {
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
 
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        String currentDate = dateFormat.format(date);
+
         try {
 
             open();
             preparedStatement = connect.prepareStatement("insert into dbmc536b16.Comentario values (default, ?, ?, ?, ?)");
 
             preparedStatement.setString(1, com.getTexto());
-            preparedStatement.setDate(2, sqlToday);
+            preparedStatement.setString(2, currentDate);
             preparedStatement.setString(3, com.getAutorCom());
             preparedStatement.setInt(4, com.getIdDocumento());
 

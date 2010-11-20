@@ -56,12 +56,12 @@
                         </tbody>
                     </table>
                 </form>
-                <ul>
-                    <c:forEach var="comment" items="${comments.rows}">
-                        <li><b>${comment.Nome}</b> - ${comment.Data}</li>
-                        <li>${comment.Texto}</li>
-                    </c:forEach>
-                </ul>
+                <c:forEach var="comment" items="${comments.rows}">
+                    <ul>
+                        <li><b>${comment.AutorCom}</b> - ${comment.Data}</li>
+                        <ul><li>${comment.Texto}</li></ul>
+                    </ul>
+                </c:forEach>
             </div>
         </div>
     </div>
