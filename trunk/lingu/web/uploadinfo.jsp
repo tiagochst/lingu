@@ -84,7 +84,7 @@
 		<td>  <INPUT type="text" name="LinguaChave" size="20" maxlength="30" alt="Lingua das palavras chaves">
 		</td>
 	      </tr>
-              <%--<tr>
+              <tr>
 		 <td>  Documento resposta:</td><td>
 		  <select name="DocResp">
 		    <option value="0">Não é resposta</option>
@@ -94,13 +94,12 @@
 		  </select>
               	 </td>
 	      </tr>
-              --%>
+             
               <tr>
 		<td>  Programa multilinguismo:</td><td>
                   <select name="MultiLing" multiple size="5">
-		    <option value="0" selected>Nenhum programa</option>
 		    <c:forEach var="row" items="${prog.rows}">
-		      <option value="${row.ID}">${row.Titulo}</option>
+		      <option value="${row.ID}">${row.Nome}</option>
 		    </c:forEach>
 		  </select>
               	</td>
