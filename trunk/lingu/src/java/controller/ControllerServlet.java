@@ -121,9 +121,10 @@ public class ControllerServlet extends HttpServlet {
         PgmMultilinguistico prog = new PgmMultilinguistico();
         Autor autor = new Autor();
         db_controller db = new db_controller();
-        String[] IDProg, IDAut;
+        String[] IDProg, IDAut,DocLig;
         String address = null, ag, browser;
         Locale defaultLocale = Locale.getDefault();
+        Integer DocResp = 0 ;
         /*Login 
          * Email - E-mail do usuário
          * Senha - Senha do usuário
@@ -168,6 +169,8 @@ public class ControllerServlet extends HttpServlet {
             doc.setTitulo(request.getParameter("Titulo").toString());
             doc.setPalavrasChaves(request.getParameter("Chaves").toString());
             IDProg = request.getParameterValues("MultiLing");
+            DocLig = request.getParameterValues("DocLig");
+            DocResp = Integer.parseInt(request.getParameter("DocResp"));
             doc.setIp(request.getLocalAddr());
             ag = request.getHeader("User-Agent");
             ag = ag.toLowerCase();
@@ -195,7 +198,7 @@ public class ControllerServlet extends HttpServlet {
                 int dotPos = newFile.getName().lastIndexOf(".");
                 String extension = newFile.getName().substring(dotPos);
                 doc.setExtensao(extension);
-                doc.setId(db.NewDoc(doc, IDProg, IDAut));
+                doc.setId(db.NewDoc(doc, IDProg, IDAut,DocResp,DocLig));
                 newFile.renameTo(new File(contextRoot + "upload/" + doc.getId() + extension));
 
                 System.out.println("Documento cadastrado");
