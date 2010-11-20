@@ -65,14 +65,12 @@ public class db_controller {
         try {
 
             open();
-            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Comentario values (default, ?, ?, ?, ?, ?, ?)");
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Comentario values (default, ?, ?, ?, ?)");
 
             preparedStatement.setString(1, com.getTexto());
             preparedStatement.setDate(2, sqlToday);
-            preparedStatement.setInt(3, com.getIdDocumento());
-            preparedStatement.setInt(4, com.getIdComResp());
-            preparedStatement.setInt(5, com.getIdUsuario());
-            preparedStatement.setString(6, com.getAutorCom());
+            preparedStatement.setString(3, com.getAutorCom());
+            preparedStatement.setInt(4, com.getIdDocumento());
 
             preparedStatement.executeUpdate();
 

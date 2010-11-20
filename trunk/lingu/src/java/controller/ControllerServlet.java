@@ -242,9 +242,7 @@ public class ControllerServlet extends HttpServlet {
             }
 
             String docId = request.getParameter("DocId");
-            com.setIdUsuario(0);
             com.setIdDocumento(Integer.parseInt(docId));
-            com.setIdComResp(0);
             try {
                 db.NewCom(com);
             } catch (Exception ex) {
