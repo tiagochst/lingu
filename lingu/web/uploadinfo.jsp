@@ -94,7 +94,21 @@
 		  </select>
               	 </td>
 	      </tr>
-             
+
+
+                    <tr>
+		<td>  Documento ligado:</td><td>
+                  <select name="DocLig" multiple size="5">
+		    <c:forEach var="row" items="${doc.rows}">
+		      <option value="${row.ID}">${row.Titulo}</option>
+		    </c:forEach>
+		  </select>
+              	</td>
+	      </tr>
+
+
+
+
               <tr>
 		<td>  Programa multilinguismo:</td><td>
                   <select name="MultiLing" multiple size="5">
