@@ -133,7 +133,7 @@ public class db_controller {
 	try {
 
             open();
-            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Documento values (default, ?, ?, ?, ?, ?, ?, ?,?,?,?,?,?,?,?,?,?,?)");
 
             preparedStatement.setString(1,doc.getTitulo());
             preparedStatement.setInt(2,doc.getTipo());
