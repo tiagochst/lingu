@@ -137,9 +137,11 @@ public class db_controller {
 
 
 
-    public Boolean IsUsr(String email, String senha) throws Exception {
+    public int IsUsr(String email, String senha) throws Exception {
 
         String dbsenha;
+        int idUser;
+
         try {
             open();
             resultSet = statement.executeQuery("select * from dbmc536b16.Usuario where Email='" + email + "'");
@@ -152,15 +154,16 @@ public class db_controller {
 
                 if (dbsenha.equals(senha)) {
                     System.out.println("User OK.");
+                    idUser = resultSet.getInt("ID");
                     close();
-                    return true;
+                    return idUser;
                 }
 
             }
             System.out.println("Not User!");
 
             close();
-            return false;
+            return -1;
 
         }
 
@@ -279,6 +282,23 @@ public class db_controller {
             return ID;
 
         }
+    }
+
+    public void SetupDocUsuario(int docId, int userId) {
+
+        try {
+
+            open();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocUsuario values (?, ?)");
+
+            preparedStatement.setInt(1, userId);
+            preparedStatement.setInt(2, docId);
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("ERRO!" + e);
+        }
+        
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
