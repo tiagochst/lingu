@@ -24,7 +24,7 @@
 	      </tr>
 	      <tr>
 		<td>Senha</td>
-		<td>  <INPUT type="password" name="Senha" size="20" maxlength="12" alt="Senha de acesso">
+		<td>  <INPUT type="password" name="SenhaUsr" size="20" maxlength="12" alt="Senha de acesso">
 		</td>
 	      </tr>
 
