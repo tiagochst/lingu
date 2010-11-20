@@ -16,7 +16,7 @@
 <div id="page">
   <div id="content">
     <div class="post">
-      <h2 class="title"><a href="#">Cadastro de Usuário</a></h2>
+      <h2 class="title"><a href="#">Cadastro de Documento</a></h2>
       <div class="entry">
 	
 	
@@ -30,20 +30,17 @@
 	      </tr>
 	      <tr>
 		<td>Assunto</td>
-                <td><textarea name="Assunto" rows="4" cols="20">
-                  </textarea>
+                <td><textarea name="Assunto" rows="4" cols="20"></textarea>
                 </td>
 	      </tr>
 	      <tr>
 		<td>Descrição</td>
-                <td><textarea name="Descricao" rows="4" cols="20">
-                  </textarea>
+                <td><textarea name="Descricao" rows="4" cols="20"></textarea>
                 </td>
 	      </tr>
 	      <tr>
 		<td>Palavras-chave</td>
-                <td><textarea name="Chaves" rows="4" cols="20">
-                  </textarea>
+                <td><textarea name="Chaves" rows="4" cols="20"></textarea>
                 </td>
 	      </tr>
 	      <tr>
