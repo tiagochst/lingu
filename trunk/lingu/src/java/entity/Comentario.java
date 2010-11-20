@@ -60,7 +60,7 @@ public class Comentario implements Serializable {
     private Collection<Comentario> comentarioCollection;
     @JoinColumn(name = "IDComResp", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Integer IdComentario;
+    private Integer IdComResp;
     @JoinColumn(name = "IDDoc", referencedColumnName = "ID")
     @ManyToOne(optional = false)
     private Integer IdDocumento;
@@ -127,12 +127,12 @@ public class Comentario implements Serializable {
         this.comentarioCollection = comentarioCollection;
     }
 
-    public Integer getIdComentario() {
-        return IdComentario;
+    public Integer getIdComResp() {
+        return IdComResp;
     }
 
-    public void setIdComentario(Integer id) {
-        this.IdComentario = id;
+    public void setIdComResp(Integer id) {
+        this.IdComResp = id;
     }
 
     public Integer getIdDocumento() {
