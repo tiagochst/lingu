@@ -207,7 +207,7 @@ public class db_controller {
         }
     }
 
-    public Integer NewDoc(Documento doc, String[] IDProg, String[] IDAutor) throws Exception {
+    public Integer NewDoc(Documento doc, String[] IDProg, String[] IDAutor,Integer DocResp,String[] DocLig) throws Exception {
 
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
@@ -249,6 +249,27 @@ public class db_controller {
                     preparedStatement.executeUpdate();
                 }
             }
+
+
+            if (IDProg != null) {
+                for (int i = 0; i < IDProg.length; i++) {
+                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocPgmMult values ("  + ID +  "," + Integer.parseInt(IDProg[i]) +")");
+                    preparedStatement.executeUpdate();
+                }
+            }
+
+            /*Documento ligado a documento*/
+             if (DocLig != null) {
+                for (int i = 0; i < DocLig.length; i++) {
+                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocLigado values ("  + ID +  "," + Integer.parseInt(DocLig[i]) + ",?)");
+                    preparedStatement.setNull(1, Types.INTEGER);
+                    preparedStatement.executeUpdate();
+                }
+            }
+            /*Documento resposta*/
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocResposta values (" + ID + "," + DocResp + ")");
+            preparedStatement.executeUpdate();
+
 
         } catch (Exception e) {
             System.out.println("ERRO!" + e);
