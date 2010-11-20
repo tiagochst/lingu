@@ -151,6 +151,7 @@ public class db_controller {
             preparedStatement.setString(14,doc.getNavegador());
             preparedStatement.setDate(15,sqlToday);
             preparedStatement.setString(16,doc.getLocal());
+            preparedStatement.setString(17,doc.getExtensao());
             preparedStatement.executeUpdate();
 
 
