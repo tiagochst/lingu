@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,13 +21,14 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
  *
- * @author ra082941
+ * @author ra083632
  */
 @Entity
 @Table(name = "Documento")
@@ -100,6 +102,11 @@ public class Documento implements Serializable {
     @Basic(optional = false)
     @Column(name = "Extensao")
     private String extensao;
+    @JoinTable(name = "InteresseUserDoc", joinColumns = {
+        @JoinColumn(name = "IDDoc", referencedColumnName = "ID")}, inverseJoinColumns = {
+        @JoinColumn(name = "IDUser", referencedColumnName = "ID")})
+    @ManyToMany
+    private Collection<Usuario> usuarioCollection;
     @JoinTable(name = "DocResposta", joinColumns = {
         @JoinColumn(name = "IDDoc2", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "IDDoc1", referencedColumnName = "ID")})
@@ -107,6 +114,8 @@ public class Documento implements Serializable {
     private Collection<Documento> documentoCollection;
     @ManyToMany(mappedBy = "documentoCollection")
     private Collection<Documento> documentoCollection1;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
+    private Collection<Comentario> comentarioCollection;
 
     public Documento() {
     }
@@ -271,6 +280,14 @@ public class Documento implements Serializable {
         this.extensao = extensao;
     }
 
+    public Collection<Usuario> getUsuarioCollection() {
+        return usuarioCollection;
+    }
+
+    public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
+        this.usuarioCollection = usuarioCollection;
+    }
+
     public Collection<Documento> getDocumentoCollection() {
         return documentoCollection;
     }
@@ -285,6 +302,14 @@ public class Documento implements Serializable {
 
     public void setDocumentoCollection1(Collection<Documento> documentoCollection1) {
         this.documentoCollection1 = documentoCollection1;
+    }
+
+    public Collection<Comentario> getComentarioCollection() {
+        return comentarioCollection;
+    }
+
+    public void setComentarioCollection(Collection<Comentario> comentarioCollection) {
+        this.comentarioCollection = comentarioCollection;
     }
 
     @Override
@@ -309,7 +334,7 @@ public class Documento implements Serializable {
 
     @Override
     public String toString() {
-        return "controller.Documento[id=" + id + "]";
+        return "entity.Documento[id=" + id + "]";
     }
 
 }
