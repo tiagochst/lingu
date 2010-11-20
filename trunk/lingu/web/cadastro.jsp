@@ -27,17 +27,7 @@
 		<td>  <INPUT type="password" name="Senha" size="20" maxlength="12" alt="Senha de acesso">
 		</td>
 	      </tr>
-	      <tr>
-		<td>Tipo</td>
-		<td>
 
-		  <SELECT name="Tipo" >
-		    <option value="0">Normal</option>
-		    <option value="1">Universidade</option>
-                    <option value="2">Instituição</option>
-		  </SELECT>
-		</td>
-	      </tr>
 	      <tr>
 		<td>Email</td>
 		<td> <INPUT type="text" name="Email" size="20" maxlength="60" alt="Email profissional">
@@ -61,7 +51,7 @@
 		      <option value="${row.ID}">${row.Nome}</option>
 		    </c:forEach>
 		  </select>
-		  
+		  <a href="cadastrorede.jsp">Nova Rede</a>
 		</td>
               </tr>
 
