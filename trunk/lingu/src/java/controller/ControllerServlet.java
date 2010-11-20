@@ -58,7 +58,7 @@ public class ControllerServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -90,8 +90,8 @@ public class ControllerServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
 
         String address;
         if (request.getParameter("user") != null) {
@@ -100,7 +100,7 @@ public class ControllerServlet extends HttpServlet {
             address = "index.jsp";
         }
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher(address);
+	    request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
 
     }
@@ -113,8 +113,8 @@ public class ControllerServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	throws ServletException, IOException {
         Usuario user = new Usuario();
         Comentario com = new Comentario();
         RedeDeTrabalho rede2 = new RedeDeTrabalho();
@@ -154,12 +154,12 @@ public class ControllerServlet extends HttpServlet {
             dispatcher.forward(request, response);
 
         } /*
-         * Função: Cadastro de Documento
-         * Insere parametros do form em um objeto
-         * a ser passado ao BD
-         * Include:
-         * - db.NewDoc
-         */ else if (request.getParameter("LinguaOficial") != null) {
+	   * Função: Cadastro de Documento
+	   * Insere parametros do form em um objeto
+	   * a ser passado ao BD
+	   * Include:
+	   * - db.NewDoc
+	   */ else if (request.getParameter("LinguaOficial") != null) {
             doc.setAssunto(request.getParameter("Assunto").toString());
             doc.setDescricao(request.getParameter("Descricao").toString());
             doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
@@ -288,7 +288,7 @@ public class ControllerServlet extends HttpServlet {
 
 
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher(address);
+	    request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
     }
 
@@ -313,26 +313,26 @@ public class ControllerServlet extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+	public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
     private boolean fileUpload(HttpServletRequest request) {
         if (ServletFileUpload.isMultipartContent(request)) {
-// Create a factory for disk-based file items
+	    // Create a factory for disk-based file items
             DiskFileItemFactory factory = new DiskFileItemFactory();
 
-// Set factory constraints
+	    // Set factory constraints
             factory.setSizeThreshold(4096);
             factory.setRepository(new File("/tmp"));
 
-// Create a new file upload handler
+	    // Create a new file upload handler
             ServletFileUpload upload = new ServletFileUpload(factory);
 
-// Set overall request size constraint
+	    // Set overall request size constraint
             upload.setSizeMax(1000000);
 
-// Parse the request
+	    // Parse the request
             List items = null;
             try {
                 items = upload.parseRequest(request);

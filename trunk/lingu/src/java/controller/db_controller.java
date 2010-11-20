@@ -89,7 +89,7 @@ public class db_controller {
         }
     }
 
-        public Boolean NewRede(RedeDeTrabalho rede) throws Exception {
+    public Boolean NewRede(RedeDeTrabalho rede) throws Exception {
 
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
@@ -113,7 +113,7 @@ public class db_controller {
         }
     }
 
-      public Boolean NewProg(PgmMultilinguistico prog) throws Exception {
+    public Boolean NewProg(PgmMultilinguistico prog) throws Exception {
 
 
         try {
@@ -186,8 +186,8 @@ public class db_controller {
                 if (dbTitulo.contains(titulo)) {
                     System.out.println("Encontrou!");
                     Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
-                            resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
-                            null, null, null, resultSet.getDate("DataInsercao"), null);
+						       resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
+						       null, null, null, resultSet.getDate("DataInsercao"), null);
                     docFound.setAssunto(resultSet.getString("Assunto"));
                     docFound.setDescricao(resultSet.getString("Descricao"));
                     docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
@@ -259,7 +259,7 @@ public class db_controller {
             }
 
             /*Documento ligado a documento*/
-             if (DocLig != null) {
+	    if (DocLig != null) {
                 for (int i = 0; i < DocLig.length; i++) {
                     preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocLigado values ("  + ID +  "," + Integer.parseInt(DocLig[i]) + ",?)");
                     preparedStatement.setNull(1, Types.INTEGER);
@@ -310,8 +310,8 @@ public class db_controller {
     }
 
     public Boolean AvaliaArtigo(String comentario, Integer nota, Integer denovo,
-            Boolean pos1, Boolean pos2, Boolean pos3, Boolean pos4)
-            throws Exception {
+				Boolean pos1, Boolean pos2, Boolean pos3, Boolean pos4)
+	throws Exception {
         try {
             open();
             preparedStatement = connect.prepareStatement("insert into  sgct.AvaliaArtigo values (default, ?, ?, ?, ? , ?, ?,?)");
@@ -341,7 +341,7 @@ public class db_controller {
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
             connect = DriverManager.getConnection("jdbc:mysql://sql2.lab.ic.unicamp.br:3306/dbmc536b16",
-                    "mc536user16", "aeyeenai");
+						  "mc536user16", "aeyeenai");
 
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();

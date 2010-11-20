@@ -20,7 +20,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author ra060210
+ * @author ra082941
  */
 @Entity
 @Table(name = "Autor")
@@ -42,7 +42,7 @@ public class Autor implements Serializable {
     @Column(name = "Pais")
     private String pais;
     @ManyToMany(mappedBy = "autorCollection")
-    private Collection<PgmMultilinguistico> pgmMultilinguisticoCollection;
+    private Collection<Documento> documentoCollection;
 
     public Autor() {
     }
@@ -80,12 +80,12 @@ public class Autor implements Serializable {
         this.pais = pais;
     }
 
-    public Collection<PgmMultilinguistico> getPgmMultilinguisticoCollection() {
-        return pgmMultilinguisticoCollection;
+    public Collection<Documento> getDocumentoCollection() {
+        return documentoCollection;
     }
 
-    public void setPgmMultilinguisticoCollection(Collection<PgmMultilinguistico> pgmMultilinguisticoCollection) {
-        this.pgmMultilinguisticoCollection = pgmMultilinguisticoCollection;
+    public void setDocumentoCollection(Collection<Documento> documentoCollection) {
+        this.documentoCollection = documentoCollection;
     }
 
     @Override
