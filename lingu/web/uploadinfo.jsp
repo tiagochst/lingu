@@ -23,7 +23,7 @@
 	<FORM action="ControllerServlet" method="POST">
 	  <table>
 	    <tbody>
-             <tr>
+              <tr>
 		<td>Titulo</td>
 		<td> <INPUT type="text" name="Titulo" size="20" maxlength="60" alt="Lingua da descrição">
 		</td>
@@ -85,18 +85,18 @@
 		</td>
 	      </tr>
               <tr>
-		 <td>  Documento resposta:</td><td>
+		<td>  Documento resposta:</td><td>
 		  <select name="DocResp">
 		    <option value="0">Não é resposta</option>
 		    <c:forEach var="row" items="${doc.rows}">
 		      <option value="${row.ID}">${row.Titulo}</option>
 		    </c:forEach>
 		  </select>
-              	 </td>
+              	</td>
 	      </tr>
 
 
-                    <tr>
+              <tr>
 		<td>  Documento ligado:</td><td>
                   <select name="DocLig" multiple size="5">
 		    <c:forEach var="row" items="${doc.rows}">
@@ -118,16 +118,16 @@
 		  </select>
               	</td>
 	      </tr>
-                          <tr>
+              <tr>
 		<td> Autor:</td><td>
                   <select name="Autor" multiple size="5">
-		      <c:forEach var="row" items="${aut.rows}">
+		    <c:forEach var="row" items="${aut.rows}">
 		      <option value="${row.ID}">${row.Nome}</option>
 		    </c:forEach>
 		  </select>
               	</td>
 	      </tr>
-      
+	      
               <tr>
 		<td></td>
 		<td><INPUT type="submit" name="Upload" value="Upload">

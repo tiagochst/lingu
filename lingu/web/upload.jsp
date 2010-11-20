@@ -23,14 +23,14 @@
 	<FORM action="ControllerServlet" ENCTYPE="multipart/form-data" method="POST">
 	  <table>
 	    <tbody>
-              <tr>
+	      <tr>
 		<td>Documento</td>
-                <td>
-                  <input type="file" name="File" value="" />
-                </td>
+		<td>
+		  <input type="file" name="File" value="" />
+		</td>
 	      </tr>
 
-              <tr>
+	      <tr>
 		<td></td>
 		<td><INPUT type="submit" name="Upload" value="Upload">
 		</td>

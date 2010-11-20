@@ -17,14 +17,14 @@
 		<td>  <INPUT type="text" name="NomeProg" size="20" maxlength="60" alt="Nome Completo">
 		</td>
 	      </tr>
-          <tr>
+              <tr>
 		<td>Lingua: </td>
 		<td>  <INPUT type="text" name="Lingua" size="20" maxlength="15" alt="Lingua do utilizador">
 		</td>
 	      </tr>
               <tr>
-                                <td valign="top">Descrição: </td>
-                                <td><textarea name="Descricao" rows="4" cols="34" alt="Descrição do projeto."></textarea></td>
+                <td valign="top">Descrição: </td>
+                <td><textarea name="Descricao" rows="4" cols="34" alt="Descrição do projeto."></textarea></td>
               </tr>
               <tr>
 		<td></td>

@@ -27,7 +27,7 @@
 		</td>
 	      </tr>
               <tr>
-              <td></td>
+		<td></td>
 		<td><INPUT type="submit" name="Enviar" value="Cadastrar">
 		</td>
 	      </tr>
