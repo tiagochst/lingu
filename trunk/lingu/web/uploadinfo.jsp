@@ -55,7 +55,7 @@
 		    <option value="1">Artigo científico</option>
                     <option value="2">Texto reinvidicatório</option>
                     <option value="3">Acordos</option>
-                    <option value="4">Acordos</option>
+                    <option value="4">Livro</option>
                     <option value="5">Declarações</option>
                     <option value="6">Sugestões</option>
                     <option value="7">Outros</option>
