@@ -58,8 +58,10 @@
         </jsp-property-group>
         <jsp-property-group>
             <description>header and footer settings</description>
-            <url-pattern>/cadastro.jsp</url-pattern>
+            <url-pattern>/cadastroprog.jsp</url-pattern>
             <url-pattern>/login.jsp</url-pattern>
+            <url-pattern>/cadastro.jsp</url-pattern>
+            <url-pattern>/cadastrorede.jsp</url-pattern>
             <include-prelude>/WEB-INF/jspf/header_login.jspf</include-prelude>
             <include-coda>/WEB-INF/jspf/footer.jspf</include-coda>
         </jsp-property-group>
