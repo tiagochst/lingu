@@ -115,6 +115,8 @@ public class ControllerServlet extends HttpServlet {
     @Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
+        
+        HttpSession session = request.getSession();
         Usuario user = new Usuario();
         Comentario com = new Comentario();
         RedeDeTrabalho rede2 = new RedeDeTrabalho();
@@ -135,8 +137,11 @@ public class ControllerServlet extends HttpServlet {
             user.setSenha(request.getParameter("Senha").toString());
 
             try {
-                if (db.IsUsr(user.getEmail(), user.getSenha())) {
-                    HttpSession session = request.getSession();
+                int possibleId = db.IsUsr(user.getEmail(), user.getSenha());
+                if (possibleId != -1) {
+                    user.setId(possibleId);
+                    session.setAttribute("Logado", 1);
+                    session.setAttribute("Usuario", user);
                     System.out.println("Usuário aceito!");
                     address = "index.jsp";
                 } else {
@@ -202,6 +207,11 @@ public class ControllerServlet extends HttpServlet {
                 doc.setExtensao(extension);
                 doc.setId(db.NewDoc(doc, IDProg, IDAut,DocResp,DocLig));
                 newFile.renameTo(new File(contextRoot + "upload/" + doc.getId() + extension));
+
+                Usuario userLogado = (Usuario) session.getAttribute("Usuario");
+                if (userLogado != null) {
+                    db.SetupDocUsuario(doc.getId(), userLogado.getId());
+                }
 
                 System.out.println("Documento cadastrado");
                 address = "index.jsp";

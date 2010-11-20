@@ -34,7 +34,17 @@
 				<ul>
 					<li class="current_page_item"><a href="index.jsp">Home</a></li>
 					<li><a href="upload.jsp">Upload</a></li>
+                                        <%
+                                            if(session.getAttribute("Logado") == null) {
+                                        %>
 					<li><a href="login.jsp">Login</a></li>
+                                        <%
+                                            } else {
+                                        %>
+                                        <li><a href="logout.jsp">Logout</a></li>
+                                        <%
+                                            }
+                                        %>
 					<li><a href="about.jsp">About</a></li>
 				</ul>
 			</div>
