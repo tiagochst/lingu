@@ -6,6 +6,7 @@ package controller;
 
 import entity.Comentario;
 import entity.Documento;
+import entity.PgmMultilinguistico;
 import entity.Usuario;
 import entity.RedeDeTrabalho;
 import java.sql.Connection;
@@ -105,6 +106,29 @@ public class db_controller {
             return true;
         }
     }
+
+      public Boolean NewProg(PgmMultilinguistico prog) throws Exception {
+
+
+        try {
+
+            open();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.PgmMultilinguistico values (default, ?, ?, ?)");
+
+            preparedStatement.setString(1, prog.getNome());
+            preparedStatement.setString(2, prog.getDescricao());
+            preparedStatement.setString(3, prog.getLingua());
+
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close();
+            return true;
+        }
+    }
+
 
 
     public Boolean IsUsr(String email, String senha) throws Exception {
