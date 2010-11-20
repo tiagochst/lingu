@@ -7,6 +7,7 @@ package controller;
 import entity.Comentario;
 import entity.Documento;
 import entity.Usuario;
+import entity.RedeDeTrabalho;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -82,6 +83,31 @@ public class db_controller {
             return true;
         }
     }
+
+        public Boolean NewRede(RedeDeTrabalho rede) throws Exception {
+
+        java.util.Date today = new java.util.Date();
+        java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+
+        try {
+
+            open();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.RedeDeTrabalho values (default, ?, ?, ?)");
+
+            preparedStatement.setString(1, rede.getNome());
+            preparedStatement.setString(2, rede.getEmail());
+            preparedStatement.setString(3, rede.getUrl());
+            
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close();
+            return true;
+        }
+    }
+
 
     public Boolean IsUsr(String email, String senha) throws Exception {
 
