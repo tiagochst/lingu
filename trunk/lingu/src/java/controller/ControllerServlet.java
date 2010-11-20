@@ -33,6 +33,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -135,6 +136,7 @@ public class ControllerServlet extends HttpServlet {
 
             try {
                 if (db.IsUsr(user.getEmail(), user.getSenha())) {
+                    HttpSession session = request.getSession();
                     System.out.println("Usuário aceito!");
                     address = "index.jsp";
                 } else {
