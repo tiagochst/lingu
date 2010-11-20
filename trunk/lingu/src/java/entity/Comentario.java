@@ -26,7 +26,7 @@ import javax.persistence.TemporalType;
 
 /**
  *
- * @author ra060210
+ * @author ra083632
  */
 @Entity
 @Table(name = "Comentario")
@@ -34,7 +34,8 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Comentario.findAll", query = "SELECT c FROM Comentario c"),
     @NamedQuery(name = "Comentario.findById", query = "SELECT c FROM Comentario c WHERE c.id = :id"),
     @NamedQuery(name = "Comentario.findByTexto", query = "SELECT c FROM Comentario c WHERE c.texto = :texto"),
-    @NamedQuery(name = "Comentario.findByData", query = "SELECT c FROM Comentario c WHERE c.data = :data")})
+    @NamedQuery(name = "Comentario.findByData", query = "SELECT c FROM Comentario c WHERE c.data = :data"),
+    @NamedQuery(name = "Comentario.findByAutorCom", query = "SELECT c FROM Comentario c WHERE c.autorCom = :autorCom")})
 public class Comentario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -49,17 +50,20 @@ public class Comentario implements Serializable {
     @Column(name = "Data")
     @Temporal(TemporalType.DATE)
     private Date data;
+    @Basic(optional = false)
+    @Column(name = "AutorCom")
+    private String autorCom;
+    @JoinColumn(name = "IDUser", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Integer IdUsuario;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comentario")
     private Collection<Comentario> comentarioCollection;
     @JoinColumn(name = "IDComResp", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Comentario comentario;
+    private Integer IdComentario;
     @JoinColumn(name = "IDDoc", referencedColumnName = "ID")
     @ManyToOne(optional = false)
-    private Documento documento;
-    @JoinColumn(name = "IDUser", referencedColumnName = "ID")
-    @ManyToOne(optional = false)
-    private Usuario usuario;
+    private Integer IdDocumento;
 
     public Comentario() {
     }
@@ -68,10 +72,11 @@ public class Comentario implements Serializable {
         this.id = id;
     }
 
-    public Comentario(Integer id, String texto, Date data) {
+    public Comentario(Integer id, String texto, Date data, String autorCom) {
         this.id = id;
         this.texto = texto;
         this.data = data;
+        this.autorCom = autorCom;
     }
 
     public Integer getId() {
@@ -98,6 +103,22 @@ public class Comentario implements Serializable {
         this.data = data;
     }
 
+    public String getAutorCom() {
+        return autorCom;
+    }
+
+    public void setAutorCom(String autorCom) {
+        this.autorCom = autorCom;
+    }
+
+    public Integer getIdUsuario() {
+        return IdUsuario;
+    }
+
+    public void setIdUsuario(Integer id) {
+        this.IdUsuario = id;
+    }
+
     public Collection<Comentario> getComentarioCollection() {
         return comentarioCollection;
     }
@@ -106,28 +127,20 @@ public class Comentario implements Serializable {
         this.comentarioCollection = comentarioCollection;
     }
 
-    public Comentario getComentario() {
-        return comentario;
+    public Integer getIdComentario() {
+        return IdComentario;
     }
 
-    public void setComentario(Comentario comentario) {
-        this.comentario = comentario;
+    public void setIdComentario(Integer id) {
+        this.IdComentario = id;
     }
 
-    public Documento getDocumento() {
-        return documento;
+    public Integer getIdDocumento() {
+        return IdDocumento;
     }
 
-    public void setDocumento(Documento documento) {
-        this.documento = documento;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setIdDocumento(Integer id) {
+        this.IdDocumento = id;
     }
 
     @Override

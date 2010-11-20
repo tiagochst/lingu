@@ -11,6 +11,7 @@ package controller;
 
 import controller.db_controller;
 import entity.Autor;
+import entity.Comentario;
 import entity.Documento;
 import entity.PgmMultilinguistico;
 import entity.RedeDeTrabalho;
@@ -118,6 +119,7 @@ public class ControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
         Usuario user = new Usuario();
+        Comentario com = new Comentario();
         Documento doc = new Documento();
         PgmMultilinguistico prog = new PgmMultilinguistico();
         Autor autor = new Autor();
@@ -125,7 +127,6 @@ public class ControllerServlet extends HttpServlet {
         String[] IDProg,IDAut;
         String address = null,ag,browser;
         Locale defaultLocale = Locale.getDefault();
-
         /*Login 
          * Email - E-mail do usuário
          * Senha - Senha do usuário
@@ -229,15 +230,29 @@ public class ControllerServlet extends HttpServlet {
 		Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
 	    }
 
-	
-
-
         }
                else if( ServletFileUpload.isMultipartContent(request))
         {
             fileUpload(request);
             address = "uploadinfo.jsp";
         }
+               else if(request.getParameter("comments") != null){
+
+                    com.setTexto(request.getParameter("comments").toString());
+                    if(request.getParameter("NomeComentario").toString()==null){
+                         com.setAutorCom("Anônimo");
+                    }else{
+                         com.setAutorCom(request.getParameter("NomeComentario").toString());
+                    }
+
+                    com.setIdUsuario(0);
+                    com.setIdDocumento(Integer.parseInt(request.getParameter("doc")));
+                    com.setIdComentario(0);
+
+                    address = "uploadinfo.jsp";
+
+
+               }
             RequestDispatcher dispatcher =
 		request.getRequestDispatcher(address);
 	    dispatcher.forward(request, response);

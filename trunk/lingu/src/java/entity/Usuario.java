@@ -15,7 +15,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -25,7 +24,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author ra060210
+ * @author ra083632
  */
 @Entity
 @Table(name = "Usuario")
@@ -63,11 +62,6 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @Column(name = "Senha")
     private String senha;
-    @JoinTable(name = "SuportaPgmMult", joinColumns = {
-        @JoinColumn(name = "IDUser", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "IDPgmMult", referencedColumnName = "ID")})
-    @ManyToMany
-    private Collection<PgmMultilinguistico> pgmMultilinguisticoCollection;
     @ManyToMany(mappedBy = "usuarioCollection")
     private Collection<Documento> documentoCollection;
     @JoinColumn(name = "IDRede", referencedColumnName = "ID")
@@ -147,14 +141,6 @@ public class Usuario implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
-    }
-
-    public Collection<PgmMultilinguistico> getPgmMultilinguisticoCollection() {
-        return pgmMultilinguisticoCollection;
-    }
-
-    public void setPgmMultilinguisticoCollection(Collection<PgmMultilinguistico> pgmMultilinguisticoCollection) {
-        this.pgmMultilinguisticoCollection = pgmMultilinguisticoCollection;
     }
 
     public Collection<Documento> getDocumentoCollection() {

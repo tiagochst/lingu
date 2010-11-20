@@ -4,9 +4,11 @@
  */
 
 package controller;
+import entity.Comentario;
 import entity.Documento;
 import entity.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,6 +57,35 @@ public class db_controller {
 		    return true;
 		}
     }
+
+
+    public Boolean NewCom(Comentario com) throws Exception {
+
+       java.util.Date today = new java.util.Date();
+       java.sql.Date sqlToday = new java.sql.Date(today.getTime());
+
+	try {
+
+            open();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Comentario values (default,  ?, ?, ?, ?, ?,?)");
+
+            preparedStatement.setString(1,com.getTexto());
+            preparedStatement.setDate(2, sqlToday);
+            preparedStatement.setInt(3,com.getIdDocumento());
+            preparedStatement.setInt(4,com.getId());
+            preparedStatement.setInt(5,com.getIdUsuario());
+            preparedStatement.setString(6,com.getAutorCom());
+
+            preparedStatement.executeUpdate();
+
+	} catch (Exception e) {
+	    throw e;
+	} finally {
+	 	    close();
+		    return true;
+		}
+    }
+
     public Boolean IsUsr(String email,String senha) throws Exception {
 
 	String dbsenha;
