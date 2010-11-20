@@ -116,6 +116,7 @@ public class ControllerServlet extends HttpServlet {
             throws ServletException, IOException {
         Usuario user = new Usuario();
         Comentario com = new Comentario();
+        RedeDeTrabalho rede2 = new RedeDeTrabalho();
         Documento doc = new Documento();
         PgmMultilinguistico prog = new PgmMultilinguistico();
         Autor autor = new Autor();
@@ -251,9 +252,24 @@ public class ControllerServlet extends HttpServlet {
             }
 
             address = "detalhes.jsp?doc=" + docId;
+        } else if (request.getParameter("NomeRede") != null) {
 
+            rede2.setNome(request.getParameter("NomeRede").toString());
+            rede2.setEmail(request.getParameter("EmailRede").toString());
+            rede2.setUrl(request.getParameter("UrlRede").toString());
 
+            try {
+                db.NewRede(rede2);
+            } catch (Exception ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            address = "cadastro.jsp";
         }
+
+
+
+
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher(address);
         dispatcher.forward(request, response);
