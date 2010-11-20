@@ -105,7 +105,7 @@ public class db_controller {
 		    System.out.println("Encontrou!");
                     Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
                             resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
-                            null, null, null, resultSet.getDate("DataInsercao"));
+                            null, null, null, resultSet.getDate("DataInsercao"),null);
                     docFound.setAssunto(resultSet.getString("Assunto"));
                     docFound.setDescricao(resultSet.getString("Descricao"));
                     docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
