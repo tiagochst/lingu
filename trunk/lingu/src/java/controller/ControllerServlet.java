@@ -188,12 +188,14 @@ public class ControllerServlet extends HttpServlet {
 
 
 	    try {
-		doc.setId(db.NewDoc(doc,IDProg,IDAut));
+		
 
                    String contextRoot = getServletContext().getRealPath("/");
                 int dotPos = newFile.getName().lastIndexOf(".");
                  String extension = newFile.getName().substring(dotPos);
-             newFile.renameTo(new File(contextRoot+ "upload/"+doc.getId()+extension));
+                 doc.setExtensao(extension);
+                 doc.setId(db.NewDoc(doc,IDProg,IDAut));
+                 newFile.renameTo(new File(contextRoot+ "upload/"+doc.getId()+extension));
 
 		System.out.println("Documento cadastrado");
 		address = "index.jsp";
