@@ -22,7 +22,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author ra060210
+ * @author ra082941
  */
 @Entity
 @Table(name = "PgmMultilinguistico")
@@ -50,11 +50,6 @@ public class PgmMultilinguistico implements Serializable {
     private String lingua;
     @ManyToMany(mappedBy = "pgmMultilinguisticoCollection")
     private Collection<Usuario> usuarioCollection;
-    @JoinTable(name = "AutorDoc", joinColumns = {
-        @JoinColumn(name = "IDDoc", referencedColumnName = "ID")}, inverseJoinColumns = {
-        @JoinColumn(name = "IDAutor", referencedColumnName = "ID")})
-    @ManyToMany
-    private Collection<Autor> autorCollection;
     @JoinTable(name = "DocPgmMult", joinColumns = {
         @JoinColumn(name = "IDPgmMult", referencedColumnName = "ID")}, inverseJoinColumns = {
         @JoinColumn(name = "IDDoc", referencedColumnName = "ID")})
@@ -113,14 +108,6 @@ public class PgmMultilinguistico implements Serializable {
 
     public void setUsuarioCollection(Collection<Usuario> usuarioCollection) {
         this.usuarioCollection = usuarioCollection;
-    }
-
-    public Collection<Autor> getAutorCollection() {
-        return autorCollection;
-    }
-
-    public void setAutorCollection(Collection<Autor> autorCollection) {
-        this.autorCollection = autorCollection;
     }
 
     public Collection<Documento> getDocumentoCollection() {
