@@ -1,5 +1,64 @@
 <div id="footer">
 	<p>Lingu</p>
+     
+   <%-- language selection widget --%>
+  <c:choose>
+    <%-- When user hasn't explicitly set language,
+         render toggle according to browser's preferred locale --%>
+    <c:when test="${empty sessionScope['javax.servlet.jsp.jstl.fmt.locale.session']}">
+      <c:choose>
+        <c:when test="${pageContext.request.locale.language ne 'pt'}">
+          english
+        </c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="en"/>
+          </c:url>
+          <span class="rounded bubble"><a href="${url}">english</a></span>
+        </c:otherwise>
+      </c:choose> |
+
+      <c:choose>
+        <c:when test="${pageContext.request.locale.language eq 'pt'}">
+          Português
+        </c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="pt-br"/>
+          </c:url>
+          <span class="rounded bubble"><a href="${url}">teste</a></span>
+        </c:otherwise>
+      </c:choose>
+    </c:when>
+
+    <%-- Otherwise, render widget according to the set locale --%>
+    <c:otherwise>
+      <c:choose>
+        <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] ne 'pt_BR'}">
+          english
+        </c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="en"/>
+          </c:url>
+          <span class="rounded bubble"><a href="${url}">english</a></span>
+        </c:otherwise>
+      </c:choose> |
+
+      <c:choose>
+        <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] eq 'pt_BR'}">
+          portugues
+        </c:when>
+        <c:otherwise>
+          <c:url var="url" value="chooseLanguage">
+            <c:param name="language" value="pt-br"/>
+          </c:url>
+          <span class="rounded bubble"><a href="${url}">Portugues</a></span>
+        </c:otherwise>
+      </c:choose>
+    </c:otherwise>
+  </c:choose>
+
 </div>
 <!-- end #footer -->
 </body>
