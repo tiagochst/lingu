@@ -9,6 +9,6 @@
     </div>
   </div>
   <!-- end #content -->
-  <jsp:include page="sidebarHome.jsp"></jsp:include>
+  <jsp:include page="sidebarUpload.jsp"></jsp:include>
   <div style="clear: both;">&nbsp;</div>
   <!-- end #page -->
