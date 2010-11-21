@@ -1,54 +1,39 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+
+<sql:query var="topDocs" dataSource="jdbc/mc536">
+  select * from Documento ORDER BY NumAcessos DESC LIMIT 5
+</sql:query>
+
+
+<sql:query var="prog" dataSource="jdbc/mc536">
+  select * from PgmMultilinguistico where ID != 0 ORDER BY RAND()  LIMIT 3
+</sql:query>
+
+
 <div id="sidebar">
-  <ul>
+    <ul>
     <li>
-      <h2>Search</h2>
-      <div id="search" >
-	<form method="get" action="#">
-	  <div>
-	    <input type="text" name="s" id="search-text" value="" />
-	    <input type="submit" id="search-submit" value="GO" />
-	  </div>
-	</form>
-      </div>
-      <div style="clear: both;">&nbsp;</div>
-    </li>
-    <li>
-      <h2>Aliquam tempus</h2>
-      <p>Mauris vitae nisl nec metus placerat perdiet est. Phasellus dapibus semper consectetuer hendrerit.</p>
-    </li>
-    <li>
-      <h2>Categories</h2>
+      <h2>Mais buscados</h2>
       <ul>
-	<li><a href="#">Aliquam libero</a></li>
-	<li><a href="#">Consectetuer adipiscing elit</a></li>
-	<li><a href="#">Metus aliquam pellentesque</a></li>
-	<li><a href="#">Suspendisse iaculis mauris</a></li>
-	<li><a href="#">Urnanet non molestie semper</a></li>
-	<li><a href="#">Proin gravida orci porttitor</a></li>
+        <c:forEach var="doc" items="${topDocs.rows}">
+          <li><a href="detalhes.jsp?doc=${doc.ID}">${doc.Titulo}</a></li>
+        </c:forEach>
       </ul>
     </li>
+
     <li>
-      <h2>Blogroll</h2>
+      <h2>Programas multilinguísticos</h2>
       <ul>
-	<li><a href="#">Aliquam libero</a></li>
-	<li><a href="#">Consectetuer adipiscing elit</a></li>
-	<li><a href="#">Metus aliquam pellentesque</a></li>
-	<li><a href="#">Suspendisse iaculis mauris</a></li>
-	<li><a href="#">Urnanet non molestie semper</a></li>
-	<li><a href="#">Proin gravida orci porttitor</a></li>
-      </ul>
-    </li>
-    <li>
-      <h2>Archives</h2>
-      <ul>
-	<li><a href="#">Aliquam libero</a></li>
-	<li><a href="#">Consectetuer adipiscing elit</a></li>
-	<li><a href="#">Metus aliquam pellentesque</a></li>
-	<li><a href="#">Suspendisse iaculis mauris</a></li>
-	<li><a href="#">Urnanet non molestie semper</a></li>
-	<li><a href="#">Proin gravida orci porttitor</a></li>
+        <c:forEach var="prog" items="${prog.rows}">
+          <li>${prog.Nome}</li>
+        </c:forEach>
+        <li><a href="cadastroprog.jsp">+ Novo programa</a> </li>
       </ul>
     </li>
   </ul>
+
+
+
 </div>
 <!-- end #sidebar -->

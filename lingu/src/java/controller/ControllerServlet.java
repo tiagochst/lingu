@@ -93,12 +93,28 @@ public class ControllerServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	throws ServletException, IOException {
 
-        String address;
+        String userPath = request.getServletPath();
+
+        String address = null;
         if (request.getParameter("user") != null) {
             address = "response.jsp";
-        } else {
-            address = "index.jsp";
+        } else if (userPath.equals("/chooseLanguage")){
+                // get language choice
+            String language = request.getParameter("language");
+
+            // place in request scope
+            request.setAttribute("language", language);
+            System.out.println(language);
+            // forward request to welcome page
+            try {
+             request.getRequestDispatcher("/index.jsp").forward(request, response);
+            } catch (Exception ex) {
+            ex.printStackTrace();
+            }
+            return;
+           
         }
+
         RequestDispatcher dispatcher =
 	    request.getRequestDispatcher(address);
         dispatcher.forward(request, response);

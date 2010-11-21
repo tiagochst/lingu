@@ -125,7 +125,7 @@ import javax.servlet.http.HttpServletResponse;
 	    try {
                 if(adv==1){
                      System.out.println("Busca avançada iniciada");
-                    resultDoc = db.AdvSearch(doc,aut);
+                     resultDoc = db.AdvSearch(doc,aut);
                         
                 }
                 else{

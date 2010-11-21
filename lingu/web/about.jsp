@@ -2,9 +2,9 @@
 <div id="page">
   <div id="content">
     <div class="post">
-      <h3 class="title"><a href="#">Sobre o projeto Lingu</a></h3>
+      <h3 class="title"><a href="#"><fmt:message key='TitleAbout'/></a></h3>
       <div class="entry">
-        <li>Lingu is the man!</li>
+        <li><fmt:message key='txtabout'/></li>
       </div>
     </div>
   </div>

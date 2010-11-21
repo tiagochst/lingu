@@ -16,7 +16,7 @@
 <div id="page">
   <div id="content">
     <div class="post">
-      <h2 class="title"><a href="#">Upload de documento</a></h2>
+      <h2 class="title"><a href="#"><fmt:message key='TitleUpload'/></a></h2>
       <div class="entry">
 	
 	
@@ -24,7 +24,7 @@
 	  <table>
 	    <tbody>
 	      <tr>
-		<td>Documento</td>
+		<td><fmt:message key='Document'/></td>
 		<td>
 		  <input type="file" name="File" value="" />
 		</td>
