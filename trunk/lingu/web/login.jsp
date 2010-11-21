@@ -16,7 +16,7 @@
                 </td>
               </tr>
               <tr>
-                <td>Senha: </td>
+                <td><fmt:message key='Password'/> </td>
                 <td><INPUT type="password" name="Senha" size="20" maxlength="12" alt="Senha de usuário.">
                 </td>
               </tr>
@@ -28,7 +28,7 @@
                 <td align="center"><INPUT type="submit" name="Entrar" value="Login" alt="Entrar no sistema."></td>
               </tr>
               <tr>
-                <td align="center"><a href="cadastro.jsp">Não sou cadastrado!</a></td>
+                <td align="center"><a href="cadastro.jsp"><fmt:message key='NotUser'/></a></td>
               </tr>
             </tbody>
           </table>

@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sql:query var="prog" dataSource="jdbc/mc536">
   select * from PgmMultilinguistico where ID != 0 ORDER BY RAND()  LIMIT 3
@@ -12,7 +13,7 @@
 <div id="sidebar">
     <ul>
     <li>
-        <h2>Países que mais postam</h2>
+        <h2><fmt:message key='TopCountry'/></h2>
         <ul>
             <c:forEach var="pais" items="${paises.rows}">
                 <li><a href="mapa.jsp?pais=${pais.Pais}">${pais.Pais}</a></li>
@@ -21,7 +22,7 @@
     </li>
 
     <li>
-      <h2>Programas multilinguísticos</h2>
+      <h2><fmt:message key='pgm'/></h2>
       <ul>
         <c:forEach var="prog" items="${prog.rows}">
           <li>${prog.Nome}</li>
