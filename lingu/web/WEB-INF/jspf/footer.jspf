@@ -21,13 +21,13 @@
 
       <c:choose>
         <c:when test="${pageContext.request.locale.language eq 'pt'}">
-          Português
+          português
         </c:when>
         <c:otherwise>
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="pt-br"/>
           </c:url>
-          <span class="rounded bubble"><a href="${url}">Português</a></span>
+          <span class="rounded bubble"><a href="${url}">português</a></span>
         </c:otherwise>
       </c:choose>
     </c:when>
@@ -48,14 +48,14 @@
 
       <c:choose>
         <c:when test="${sessionScope['javax.servlet.jsp.jstl.fmt.locale.session'] eq 'pt_BR'}">
-          portugues
+          português
         </c:when>
         <c:otherwise>
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="pt-br"/>
           </c:url>
             <span class="rounded bubble"><a href="${url}">
-                    Portugues</a></span>
+                    português</a></span>
         </c:otherwise>
       </c:choose>
     </c:otherwise>
