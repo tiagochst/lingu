@@ -233,8 +233,15 @@ public class ControllerServlet extends HttpServlet {
 	    user.setLingua(request.getParameter("Lingua").toString());
 	    user.setRedeDeTrabalho(rede);
 	    try {
+
 		db.NewUsr(user);
 		System.out.println("Usuario cadastrado");
+
+                int possibleId = db.IsUsr(user.getEmail(), user.getSenha());
+                user.setId(possibleId);
+                session.setAttribute("Logado", 1);
+                session.setAttribute("Usuario", user);
+
 		address = "index.jsp";
 
 

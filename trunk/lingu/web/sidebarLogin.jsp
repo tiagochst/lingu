@@ -1,8 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
 
-<sql:query var="topDocs" dataSource="jdbc/mc536">
-  select * from Documento ORDER BY NumAcessos DESC LIMIT 5
+<sql:query var="topUsers" dataSource="jdbc/mc536">
+  select IDUser, COUNT(*) from DocUsuario group by IDUser order  by COUNT(*) desc LIMIT 5;
 </sql:query>
 
 <sql:query var="prog" dataSource="jdbc/mc536">
@@ -12,10 +12,15 @@
 <div id="sidebar">
   <ul>
     <li>
-      <h2>Mais buscados</h2>
+      <h2>Mais ativos</h2>
       <ul>
-        <c:forEach var="doc" items="${topDocs.rows}">
-          <li><a href="detalhes.jsp?doc=${doc.ID}">${doc.Titulo}</a></li>
+        <c:forEach var="topUser" items="${topUsers.rows}">
+            <sql:query var="users" dataSource="jdbc/mc536">
+                select * from Usuario where ID=${topUser.IDUser}
+            </sql:query>
+            <c:forEach var="user" items="${users.rows}">
+                <li>${user.Nome}</li>
+            </c:forEach>
         </c:forEach>
       </ul>
     </li>
@@ -26,7 +31,7 @@
         <c:forEach var="prog" items="${prog.rows}">
           <li>${prog.Nome}</li>
         </c:forEach>
-        <li><a href="cadastroprog.jsp">Novo programa</a></li>
+        <li><a href="cadastroprog.jsp">+ Novo programa</a></li>
       </ul>
     </li>
   </ul>

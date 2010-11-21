@@ -27,7 +27,7 @@
         <c:forEach var="prog" items="${prog.rows}">
           <li>${prog.Nome}</li>
         </c:forEach>
-        <li><a href="cadastroprog.jsp">Novo programa</a> </li>
+        <li><a href="cadastroprog.jsp">+ Novo programa</a> </li>
       </ul>
     </li>
   </ul>

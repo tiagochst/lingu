@@ -37,6 +37,6 @@
     </div>
   </div>
   <!-- end #content -->
-  <jsp:include page="sidebar.jsp"></jsp:include>
+  <jsp:include page="sidebarLogin.jsp"></jsp:include>
   <div style="clear: both;">&nbsp;</div>
   <!-- end #page -->

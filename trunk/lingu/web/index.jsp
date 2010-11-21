@@ -1,4 +1,11 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+
+<sql:query var="paises" dataSource="jdbc/mc536">
+  SELECT Pais, COUNT(*) FROM DocUsuario LEFT JOIN Usuario ON DocUsuario.IDUSER=Usuario.ID group by IDUSER order by COUNT(*) desc limit 1
+</sql:query>
+
 <div id="page">
   <div id="content">
     <div class="post">
@@ -18,6 +25,11 @@
           <tbody>
             <tr>
               <td align="center"><a href="buscaAvancada.jsp">Busca avançada</a></td>
+            </tr>
+            <tr>
+                <c:forEach var="pais" items="${paises.rows}">
+                    <td align="center"><a href="mapa.jsp?pais=${pais.Pais}">Mapa</a></td>
+                </c:forEach>
             </tr>
           </tbody>
         </table>
