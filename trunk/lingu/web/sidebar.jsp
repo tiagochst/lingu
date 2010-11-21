@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <sql:query var="topDocs" dataSource="jdbc/mc536">
   select * from Documento ORDER BY NumAcessos DESC LIMIT 5
 </sql:query>
