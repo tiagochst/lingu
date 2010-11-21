@@ -5,6 +5,7 @@
 
 package controller;
 
+import entity.Autor;
 import entity.Documento;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,16 +83,47 @@ import javax.servlet.http.HttpServletResponse;
 
 	    db_controller db = new db_controller();
 	    Documento doc = new Documento();
-
+            Autor aut = new Autor();
 	    String address;
-
+            Integer adv =0;
+            Vector resultDoc;
 	    /* Busca por título do documento. */
 	    if (request.getParameter("Titulo") != null) {
 		doc.setTitulo(request.getParameter("Titulo").toString());
 	    }
+	    /* Busca por autor do documento. */
+	    if (request.getParameter("Autor") != "") {
+                adv=1;
+		aut.setNome(request.getParameter("Autor").toString());
+	    }
+	    /* Busca por título do documento. */
+	    if (request.getParameter("Pais") !="") {
+                  adv=1;
+		doc.setPais(request.getParameter("Pais").toString());
+	    }
+                /* Busca por título do documento. */
+	    if (request.getParameter("LinguaOficial") != "") {
+                  adv=1;
+		doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
+	    }
+                /* Busca por ligua do utilizador. */
+	    if (request.getParameter("LinguaUtilizador") != "") {
+                  adv=1;
+		doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
+	    }
+             if (request.getParameter("Tipo") != "") {
+         	doc.setTipo(Integer.parseInt(request.getParameter("Tipo")));
+	    }
 
 	    try {
-		Vector resultDoc = db.SearchTitle(doc);
+                if(adv==1){
+                     System.out.println("Busca avançada iniciada");
+                    resultDoc = db.AdvSearch(doc);
+                        
+                }
+                else{
+                	 resultDoc = db.SearchTitle(doc);
+                }
 		request.setAttribute("Resultado", resultDoc);
 		address = "resultado.jsp";
 

@@ -174,7 +174,7 @@ public class db_controller {
 
         String dbTitulo;
         String titulo = doc.getTitulo().toLowerCase();
-        Vector resultDoc = new Vector();
+       Vector resultDoc = new Vector();
 
         try {
             open();
@@ -209,7 +209,69 @@ public class db_controller {
 
         }
     }
+   /* Busca avançada de documento . */
+    Vector AdvSearch(Documento doc) throws SQLException, Exception {
 
+        String dbTitulo=null,titulo=null,pais=null,oficial=null,util=null;
+        
+        if(doc.getTitulo()!=null){
+            titulo = doc.getTitulo().toLowerCase();
+            System.out.println(titulo);
+        }
+         if(doc.getPais()!=null){
+             pais = doc.getPais().toLowerCase();
+             System.out.println(pais);
+         }
+          if(doc.getLinguaOficial()!=null){
+        oficial = doc.getLinguaOficial().toLowerCase();
+        }
+         if(doc.getLinguaUtilizador()!=null){
+        util = doc.getLinguaUtilizador().toLowerCase();
+        }
+        Vector resultDoc = new Vector();
+
+        try {
+            open();
+            resultSet = statement.executeQuery("select * from dbmc536b16.Documento");
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            while (resultSet.next()) {
+                dbTitulo = resultSet.getString("Titulo").toLowerCase();
+                System.out.println(dbTitulo);
+
+        
+                    System.out.println("Encontrou!");
+                    Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
+						       resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
+						       null, null, null, resultSet.getDate("DataInsercao"), null);
+                    docFound.setAssunto(resultSet.getString("Assunto"));
+                    docFound.setDescricao(resultSet.getString("Descricao"));
+                    docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
+                    docFound.setPais(resultSet.getString("Pais"));
+                    docFound.setLinguaOficial(resultSet.getString("LinguaOficial"));
+                    docFound.setLinguaUtilizador(resultSet.getString("LinguaUtilizador"));
+             if(doc.getTitulo()==null || docFound.getTitulo().toLowerCase().contains(titulo) ){
+              if(doc.getPais()==null || docFound.getPais().toLowerCase().contains(pais) ){
+              if(doc.getLinguaOficial()==null || docFound.getLinguaOficial().toLowerCase().contains(oficial) ){
+              if(doc.getLinguaUtilizador()==null || docFound.getLinguaUtilizador().toLowerCase().contains(util) ){
+
+                    resultDoc.addElement(docFound);
+                  }
+                   
+                }
+              }
+            }}
+
+            if (resultDoc == null) {
+                System.out.println("Não encontrou nada!");
+            }
+
+            close();
+            return resultDoc;
+
+        }
+    }
     public Integer NewDoc(Documento doc, String[] IDProg, String[] IDAutor,Integer DocResp,String[] DocLig) throws Exception {
 
         java.util.Date today = new java.util.Date();
