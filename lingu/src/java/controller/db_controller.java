@@ -103,7 +103,7 @@ public class db_controller {
             preparedStatement.setString(1, rede.getNome());
             preparedStatement.setString(2, rede.getEmail());
             preparedStatement.setString(3, rede.getUrl());
-            
+
             preparedStatement.executeUpdate();
 
         } catch (Exception e) {
@@ -135,8 +135,6 @@ public class db_controller {
             return true;
         }
     }
-
-
 
     public int IsUsr(String email, String senha) throws Exception {
 
@@ -170,35 +168,80 @@ public class db_controller {
 
     }
 
-    /* Busca documento pelo título. */
-    Vector SearchTitle(Documento doc) throws SQLException, Exception {
+    /* Busca documento pelo título, palavra-chave, descrição e autor. */
+    Vector SearchAll(String str) throws SQLException, Exception {
 
-        String dbTitulo;
-        String titulo = doc.getTitulo().toLowerCase();
-       Vector resultDoc = new Vector();
+        String dbTitulo, dbAssunto, dbDescricao, dbChaves, dbAutor;
+        String test = str.toLowerCase();
+        Vector resultDoc = new Vector();
+        Vector auxResult = new Vector();
 
         try {
             open();
-            resultSet = statement.executeQuery("select * from dbmc536b16.Documento");
+            resultSet = statement.executeQuery("SELECT * FROM dbmc536b16.Documento LEFT JOIN (dbmc536b16.AutorDoc,dbmc536b16.Autor) ON (dbmc536b16.Documento.id=dbmc536b16.AutorDoc.IDDoc and dbmc536b16.Autor.ID=dbmc536b16.AutorDoc.IDAutor) WHERE dbmc536b16.AutorDoc.IDDoc;");
         } catch (Exception e) {
             throw e;
         } finally {
             while (resultSet.next()) {
-                dbTitulo = resultSet.getString("Titulo").toLowerCase();
+                dbTitulo = resultSet.getString("Titulo");
                 System.out.println(dbTitulo);
+                dbAssunto = resultSet.getString("Assunto");
+                System.out.println(dbAssunto);
+                dbDescricao = resultSet.getString("Descricao");
+                System.out.println(dbDescricao);
+                dbChaves = resultSet.getString("PalavrasChaves");
+                System.out.println(dbChaves);
+                dbAutor = resultSet.getString("Nome");
 
-                if (dbTitulo.contains(titulo)) {
-                    System.out.println("Encontrou!");
-                    Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
-						       resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
-						       null, null, null, resultSet.getDate("DataInsercao"), null);
-                    docFound.setAssunto(resultSet.getString("Assunto"));
-                    docFound.setDescricao(resultSet.getString("Descricao"));
-                    docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
-                    docFound.setPais(resultSet.getString("Pais"));
-                    resultDoc.addElement(docFound);
+                Documento docFound = new Documento(resultSet.getInt("ID"), null, resultSet.getInt("Tipo"),
+                        resultSet.getInt("NumAcessos"), null, null, null, resultSet.getDate("DataInsercao"),
+                        null);
+
+                if (dbTitulo.toLowerCase().contains(test)) {
+                    docFound.incNota();
                 }
 
+                if (dbAssunto.toLowerCase().contains(test)) {
+                    docFound.incNota();
+                }
+
+                if (dbDescricao.toLowerCase().contains(test)) {
+                    docFound.incNota();
+                }
+
+                if (dbChaves.toLowerCase().contains(test)) {
+                    docFound.incNota();
+                }
+
+                if (dbAutor.toLowerCase().contains(test)) {
+                    docFound.incNota();
+                }
+
+                if (docFound.getNota() > 0) {
+                    docFound.setTitulo(dbTitulo);
+                    docFound.setAssunto(dbAssunto);
+                    docFound.setDescricao(dbDescricao);
+                    docFound.setPalavrasChaves(dbChaves);
+                    resultDoc.addElement(docFound);
+                }
+            }
+
+            for (int i = 0; i < resultDoc.size(); i++) {
+                Documento auxDoc = (Documento) resultDoc.elementAt(i);
+                if (auxResult.size() == 0) {
+                    auxResult.addElement(auxDoc);
+                } else {
+                    int j;
+                    for (j = 0; j < auxResult.size(); j++) {
+                        if (auxDoc.getNota() > ((Documento) auxResult.elementAt(j)).getNota()) {
+                            auxResult.add(j, auxDoc);
+                            break;
+                        }
+                    }
+                    if (j == auxResult.size()) {
+                        auxResult.addElement(auxDoc);
+                    }
+                }
             }
 
             if (resultDoc == null) {
@@ -206,31 +249,31 @@ public class db_controller {
             }
 
             close();
-            return resultDoc;
-
+            return auxResult;
         }
     }
-   /* Busca avançada de documento . */
+
+    /* Busca avançada de documento . */
     Vector AdvSearch(Documento doc, Autor aut) throws SQLException, Exception {
 
-        String dbTitulo=null,titulo=null,pais=null,oficial=null,util=null,autor=null;
-        
-        if(doc.getTitulo()!=null){
+        String dbTitulo = null, titulo = null, pais = null, oficial = null, util = null, autor = null;
+
+        if (doc.getTitulo() != null) {
             titulo = doc.getTitulo().toLowerCase();
             System.out.println(titulo);
         }
-         if(doc.getPais()!=null){
-             pais = doc.getPais().toLowerCase();
-             System.out.println(pais);
-         }
-          if(doc.getLinguaOficial()!=null){
-        oficial = doc.getLinguaOficial().toLowerCase();
+        if (doc.getPais() != null) {
+            pais = doc.getPais().toLowerCase();
+            System.out.println(pais);
         }
-         if(doc.getLinguaUtilizador()!=null){
-        util = doc.getLinguaUtilizador().toLowerCase();
+        if (doc.getLinguaOficial() != null) {
+            oficial = doc.getLinguaOficial().toLowerCase();
         }
-          if(aut.getNome()!=null){
-             autor = aut.getNome().toLowerCase();
+        if (doc.getLinguaUtilizador() != null) {
+            util = doc.getLinguaUtilizador().toLowerCase();
+        }
+        if (aut.getNome() != null) {
+            autor = aut.getNome().toLowerCase();
         }
         Vector resultDoc = new Vector();
 
@@ -244,29 +287,31 @@ public class db_controller {
                 dbTitulo = resultSet.getString("Titulo").toLowerCase();
                 System.out.println(dbTitulo);
 
-        
-                    System.out.println("Encontrou!");
-                    Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
-						       resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
-						       null, null, null, resultSet.getDate("DataInsercao"), null);
-                    docFound.setAssunto(resultSet.getString("Assunto"));
-                    docFound.setDescricao(resultSet.getString("Descricao"));
-                    docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
-                    docFound.setPais(resultSet.getString("Pais"));
-                    docFound.setLinguaOficial(resultSet.getString("LinguaOficial"));
-                    docFound.setLinguaUtilizador(resultSet.getString("LinguaUtilizador"));
-             if(doc.getTitulo()==null || docFound.getTitulo().toLowerCase().contains(titulo) ){
-              if(doc.getPais()==null || docFound.getPais().toLowerCase().contains(pais) ){
-              if(doc.getLinguaOficial()==null || docFound.getLinguaOficial().toLowerCase().contains(oficial) ){
-              if(doc.getLinguaUtilizador()==null || docFound.getLinguaUtilizador().toLowerCase().contains(util) ){
-               if(aut.getNome()==null || resultSet.getString("Nome").toLowerCase().contains(autor) ){
-                     if(doc.getTipo()==8 || resultSet.getInt("Tipo")==doc.getTipo() ){
-                    resultDoc.addElement(docFound);
-                  }
-                  }}
+
+                System.out.println("Encontrou!");
+                Documento docFound = new Documento(resultSet.getInt("ID"), resultSet.getString("Titulo"),
+                        resultSet.getInt("Tipo"), resultSet.getInt("NumAcessos"),
+                        null, null, null, resultSet.getDate("DataInsercao"), null);
+                docFound.setAssunto(resultSet.getString("Assunto"));
+                docFound.setDescricao(resultSet.getString("Descricao"));
+                docFound.setPalavrasChaves(resultSet.getString("PalavrasChaves").toLowerCase());
+                docFound.setPais(resultSet.getString("Pais"));
+                docFound.setLinguaOficial(resultSet.getString("LinguaOficial"));
+                docFound.setLinguaUtilizador(resultSet.getString("LinguaUtilizador"));
+                if (doc.getTitulo() == null || docFound.getTitulo().toLowerCase().contains(titulo)) {
+                    if (doc.getPais() == null || docFound.getPais().toLowerCase().contains(pais)) {
+                        if (doc.getLinguaOficial() == null || docFound.getLinguaOficial().toLowerCase().contains(oficial)) {
+                            if (doc.getLinguaUtilizador() == null || docFound.getLinguaUtilizador().toLowerCase().contains(util)) {
+                                if (aut.getNome() == null || resultSet.getString("Nome").toLowerCase().contains(autor)) {
+                                    if (doc.getTipo() == 8 || resultSet.getInt("Tipo") == doc.getTipo()) {
+                                        resultDoc.addElement(docFound);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
-            }}
+            }
 
             if (resultDoc == null) {
                 System.out.println("Não encontrou nada!");
@@ -277,7 +322,8 @@ public class db_controller {
 
         }
     }
-    public Integer NewDoc(Documento doc, String[] IDProg, String[] IDAutor,Integer DocResp,String[] DocLig) throws Exception {
+
+    public Integer NewDoc(Documento doc, String[] IDProg, String[] IDAutor, Integer DocResp, String[] DocLig) throws Exception {
 
         java.util.Date today = new java.util.Date();
         java.sql.Date sqlToday = new java.sql.Date(today.getTime());
@@ -323,15 +369,15 @@ public class db_controller {
 
             if (IDProg != null) {
                 for (int i = 0; i < IDProg.length; i++) {
-                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocPgmMult values ("  + ID +  "," + Integer.parseInt(IDProg[i]) +")");
+                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocPgmMult values (" + ID + "," + Integer.parseInt(IDProg[i]) + ")");
                     preparedStatement.executeUpdate();
                 }
             }
 
             /*Documento ligado a documento*/
-	    if (DocLig != null) {
+            if (DocLig != null) {
                 for (int i = 0; i < DocLig.length; i++) {
-                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocLigado values ("  + ID +  "," + Integer.parseInt(DocLig[i]) + ",?)");
+                    preparedStatement = connect.prepareStatement("insert into dbmc536b16.DocLigado values (" + ID + "," + Integer.parseInt(DocLig[i]) + ",?)");
                     preparedStatement.setNull(1, Types.INTEGER);
                     preparedStatement.executeUpdate();
                 }
@@ -365,7 +411,7 @@ public class db_controller {
         } catch (Exception e) {
             System.out.println("ERRO!" + e);
         }
-        
+
     }
 
     private void writeMetaData(ResultSet resultSet) throws SQLException {
@@ -397,8 +443,8 @@ public class db_controller {
     }
 
     public Boolean AvaliaArtigo(String comentario, Integer nota, Integer denovo,
-				Boolean pos1, Boolean pos2, Boolean pos3, Boolean pos4)
-	throws Exception {
+            Boolean pos1, Boolean pos2, Boolean pos3, Boolean pos4)
+            throws Exception {
         try {
             open();
             preparedStatement = connect.prepareStatement("insert into  sgct.AvaliaArtigo values (default, ?, ?, ?, ? , ?, ?,?)");
@@ -428,7 +474,7 @@ public class db_controller {
             Class.forName("com.mysql.jdbc.Driver");
             // Setup the connection with the DB
             connect = DriverManager.getConnection("jdbc:mysql://sql2.lab.ic.unicamp.br:3306/dbmc536b16",
-						  "mc536user16", "aeyeenai");
+                    "mc536user16", "aeyeenai");
 
             // Statements allow to issue SQL queries to the database
             statement = connect.createStatement();

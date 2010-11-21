@@ -117,6 +117,8 @@ public class Documento implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "documento")
     private Collection<Comentario> comentarioCollection;
 
+    private int nota = 0;
+
     public Documento() {
     }
 
@@ -335,6 +337,14 @@ public class Documento implements Serializable {
     @Override
     public String toString() {
         return "entity.Documento[id=" + id + "]";
+    }
+
+    public int getNota() {
+        return nota;
+    }
+
+    public void incNota() {
+        this.nota += 1;
     }
 
 }

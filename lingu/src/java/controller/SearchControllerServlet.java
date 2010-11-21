@@ -91,27 +91,31 @@ import javax.servlet.http.HttpServletResponse;
 	    if (request.getParameter("Titulo") != null) {
 		doc.setTitulo(request.getParameter("Titulo").toString());
 	    }
+            /* Busca por palavra-chave. */
+            if (request.getParameter("Tudo") != null) {
+                doc.setDescricao(request.getParameter("Tudo").toString());
+            }
 	    /* Busca por autor do documento. */
-	    if (request.getParameter("Autor") != "") {
+	    if (request.getParameter("Autor") != null && !request.getParameter("Autor").equals("")) {
                 adv=1;
 		aut.setNome(request.getParameter("Autor").toString());
 	    }
 	    /* Busca por título do documento. */
-	    if (request.getParameter("Pais") !="") {
+	    if (request.getParameter("Pais") != null && !request.getParameter("Pais").equals("")) {
                   adv=1;
 		doc.setPais(request.getParameter("Pais").toString());
 	    }
                 /* Busca por título do documento. */
-	    if (request.getParameter("LinguaOficial") != "") {
+	    if (request.getParameter("LinguaOficial") != null && !request.getParameter("LinguaOficial").equals("")) {
                   adv=1;
 		doc.setLinguaOficial(request.getParameter("LinguaOficial").toString());
 	    }
                 /* Busca por ligua do utilizador. */
-	    if (request.getParameter("LinguaUtilizador") != "") {
+	    if (request.getParameter("LinguaUtilizador") != null && !request.getParameter("LinguaUtilizador").equals("")) {
                   adv=1;
 		doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
 	    }
-             if (request.getParameter("Tipo") != "") {
+             if (request.getParameter("Tipo") != null && !request.getParameter("Tipo").equals("")) {
          	doc.setTipo(Integer.parseInt(request.getParameter("Tipo")));
                 /*
                  Se for escolhido algum tipo de documento deve-se fazer busca avançada
@@ -129,7 +133,7 @@ import javax.servlet.http.HttpServletResponse;
                         
                 }
                 else{
-                	 resultDoc = db.SearchTitle(doc);
+                    resultDoc = db.SearchAll(doc.getDescricao());
                 }
 		request.setAttribute("Resultado", resultDoc);
 		address = "resultado.jsp";
