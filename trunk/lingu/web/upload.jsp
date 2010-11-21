@@ -46,7 +46,7 @@
   </div>
   <!-- end #content -->
 
-  <jsp:include page="sidebar.jsp"></jsp:include>
+  <jsp:include page="sidebarUpload.jsp"></jsp:include>
   <div style="clear: both;">&nbsp;</div>
 </div>
 <!-- end #page -->
