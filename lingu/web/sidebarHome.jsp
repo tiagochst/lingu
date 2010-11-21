@@ -7,6 +7,9 @@
 </sql:query>
 
 
+  <sql:query var="rede" dataSource="jdbc/mc536">
+  select * from RedeDeTrabalho where ID != 0 ORDER BY RAND()  LIMIT 3
+</sql:query>
 <sql:query var="prog" dataSource="jdbc/mc536">
   select * from PgmMultilinguistico where ID != 0 ORDER BY RAND()  LIMIT 3
 </sql:query>
@@ -29,7 +32,18 @@
         <c:forEach var="prog" items="${prog.rows}">
           <li>${prog.Nome}</li>
         </c:forEach>
-        <li><a href="cadastroprog.jsp">+ Novo programa</a> </li>
+        <li><a href="cadastroprog.jsp">+ <fmt:message key='NewPgm'/></a> </li>
+      </ul>
+    </li>
+
+
+     <li>
+      <h2><fmt:message key='network'/></h2>
+      <ul>
+        <c:forEach var="rede" items="${rede.rows}">
+          <li>${rede.Nome}</li>
+        </c:forEach>
+        <li><a href="cadastrorede.jsp">+ <fmt:message key='NewNetwork'/></a> </li>
       </ul>
     </li>
   </ul>
