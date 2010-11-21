@@ -15,26 +15,15 @@
             function initialize() {
                 if (GBrowserIsCompatible()) {
                     var map = new GMap2(document.getElementById("map"));
-                    map.setCenter(new GLatLng(37.4419, -122.1419), 13);
+                    map.addControl(new GLargeMapControl());
+                    map.addControl(new GMapTypeControl());
+                    var geocoder = new GClientGeocoder();
+                    geocoder.getLatLng("${param.pais}", function
+                    loadpostcode(point) { if (!point) { } else { map.setCenter(point,3);}});
                     map.setUIToDefault();
                 }
             }
 
-        </script>
-        <script type="text/javascript">
-            function showForm() {
-                var form = document.getElementById("commentForm");
-                form.style.display = "block";
-
-                return false;
-            }
-
-            function hideForm() {
-                var form = document.getElementById("commentForm");
-                form.style.display = "none";
-
-                return false;
-            }
         </script>
     </head>
     <body onload="initialize();" onunload="GUnload();" style="background-color:Transparent">
