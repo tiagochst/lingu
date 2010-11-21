@@ -113,12 +113,19 @@ import javax.servlet.http.HttpServletResponse;
 	    }
              if (request.getParameter("Tipo") != "") {
          	doc.setTipo(Integer.parseInt(request.getParameter("Tipo")));
+                /*
+                 Se for escolhido algum tipo de documento deve-se fazer busca avançada
+                 tipo 8 = qualquer tipo
+                 */
+                if(doc.getTipo()!=8){
+                    adv=1;
+                }
 	    }
 
 	    try {
                 if(adv==1){
                      System.out.println("Busca avançada iniciada");
-                    resultDoc = db.AdvSearch(doc);
+                    resultDoc = db.AdvSearch(doc,aut);
                         
                 }
                 else{
