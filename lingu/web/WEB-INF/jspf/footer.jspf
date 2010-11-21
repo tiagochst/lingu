@@ -14,7 +14,8 @@
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="en"/>
           </c:url>
-          <span class="rounded bubble"><a href="${url}">english</a></span>
+            <span class="rounded bubble"><a href="${url}">
+                    english</a></span>
         </c:otherwise>
       </c:choose> |
 
@@ -26,7 +27,7 @@
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="pt-br"/>
           </c:url>
-          <span class="rounded bubble"><a href="${url}">teste</a></span>
+          <span class="rounded bubble"><a href="${url}">Português</a></span>
         </c:otherwise>
       </c:choose>
     </c:when>
@@ -53,7 +54,8 @@
           <c:url var="url" value="chooseLanguage">
             <c:param name="language" value="pt-br"/>
           </c:url>
-          <span class="rounded bubble"><a href="${url}">Portugues</a></span>
+            <span class="rounded bubble"><a href="${url}">
+                    Portugues</a></span>
         </c:otherwise>
       </c:choose>
     </c:otherwise>
