@@ -4,6 +4,7 @@
  */
 package controller;
 
+import entity.Autor;
 import entity.Comentario;
 import entity.Documento;
 import entity.PgmMultilinguistico;
@@ -210,9 +211,9 @@ public class db_controller {
         }
     }
    /* Busca avançada de documento . */
-    Vector AdvSearch(Documento doc) throws SQLException, Exception {
+    Vector AdvSearch(Documento doc, Autor aut) throws SQLException, Exception {
 
-        String dbTitulo=null,titulo=null,pais=null,oficial=null,util=null;
+        String dbTitulo=null,titulo=null,pais=null,oficial=null,util=null,autor=null;
         
         if(doc.getTitulo()!=null){
             titulo = doc.getTitulo().toLowerCase();
@@ -228,11 +229,14 @@ public class db_controller {
          if(doc.getLinguaUtilizador()!=null){
         util = doc.getLinguaUtilizador().toLowerCase();
         }
+          if(aut.getNome()!=null){
+             autor = aut.getNome().toLowerCase();
+        }
         Vector resultDoc = new Vector();
 
         try {
             open();
-            resultSet = statement.executeQuery("select * from dbmc536b16.Documento");
+            resultSet = statement.executeQuery("SELECT * FROM dbmc536b16.Documento LEFT JOIN (dbmc536b16.AutorDoc,dbmc536b16.Autor) ON (dbmc536b16.Documento.id=dbmc536b16.AutorDoc.IDDoc and dbmc536b16.Autor.ID=dbmc536b16.AutorDoc.IDAutor) WHERE dbmc536b16.AutorDoc.IDDoc  is not Null;");
         } catch (Exception e) {
             throw e;
         } finally {
@@ -255,10 +259,11 @@ public class db_controller {
               if(doc.getPais()==null || docFound.getPais().toLowerCase().contains(pais) ){
               if(doc.getLinguaOficial()==null || docFound.getLinguaOficial().toLowerCase().contains(oficial) ){
               if(doc.getLinguaUtilizador()==null || docFound.getLinguaUtilizador().toLowerCase().contains(util) ){
-
+               if(aut.getNome()==null || resultSet.getString("Nome").toLowerCase().contains(autor) ){
+                     if(doc.getTipo()==8 || resultSet.getInt("Tipo")==doc.getTipo() ){
                     resultDoc.addElement(docFound);
                   }
-                   
+                  }}
                 }
               }
             }}
