@@ -14,7 +14,7 @@
 <div id="sidebar">
     <ul>
     <li>
-      <h2>Mais buscados</h2>
+      <h2><fmt:message key='TopSearched'/></h2>
       <ul>
         <c:forEach var="doc" items="${topDocs.rows}">
           <li><a href="detalhes.jsp?doc=${doc.ID}">${doc.Titulo}</a></li>
@@ -23,7 +23,7 @@
     </li>
 
     <li>
-      <h2>Programas multilinguísticos</h2>
+      <h2><fmt:message key='pgm'/></h2>
       <ul>
         <c:forEach var="prog" items="${prog.rows}">
           <li>${prog.Nome}</li>
