@@ -11,7 +11,7 @@
           <sql:query var="autor" dataSource="jdbc/mc536">
             select Nome from Autor where ID = ANY (select IDAutor from AutorDoc where IDDoc = ${res.id})
           </sql:query>
-          <h2><a href="detalhes.jsp?doc=${res.id}">${res.titulo}</a></h2>
+          <h3><a href="detalhes.jsp?doc=${res.id}">${res.titulo}</a></h3>
           <ul>
             <c:forEach var="row" items="${autor.rows}">
               <li>${row.Nome}</li>

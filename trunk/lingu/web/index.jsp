@@ -15,7 +15,7 @@
           <table align="center">
             <tbody>
               <tr>
-                <td align="center"><INPUT type="text" name="Titulo" size="30" alt="Busca por título."></td>
+                <td align="center"><INPUT type="text" name="Tudo" size="30" alt="Busca geral."></td>
                 <td align="center"><INPUT type="submit" name="Buscar" value="Buscar"></td>
               </tr>
             </tbody>
