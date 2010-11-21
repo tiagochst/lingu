@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <sql:query var="topUsers" dataSource="jdbc/mc536">
   select IDUser, COUNT(*) from DocUsuario group by IDUser order  by COUNT(*) desc LIMIT 5;
@@ -12,7 +13,7 @@
 <div id="sidebar">
   <ul>
     <li>
-      <h2>Mais ativos</h2>
+      <h2><fmt:message key='TopUser'/></h2>
       <ul>
         <c:forEach var="topUser" items="${topUsers.rows}">
             <sql:query var="users" dataSource="jdbc/mc536">
@@ -26,7 +27,7 @@
     </li>
 
     <li>
-      <h2>Programas multilinguísticos</h2>
+      <h2><fmt:message key='pgm'/></h2>
       <ul>
         <c:forEach var="prog" items="${prog.rows}">
           <li>${prog.Nome}</li>
