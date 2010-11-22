@@ -126,6 +126,8 @@
 		    </c:forEach>
 		  </select>
               	</td>
+                <td> <a href="cadastroautor.jsp">Cadastrar Autor</a>
+                </td>
 	      </tr>
 	      
               <tr>
