@@ -136,6 +136,7 @@ public class ControllerServlet extends HttpServlet {
         Usuario user = new Usuario();
         Comentario com = new Comentario();
         RedeDeTrabalho rede2 = new RedeDeTrabalho();
+        Autor autor2 = new Autor();
         Documento doc = new Documento();
         PgmMultilinguistico prog = new PgmMultilinguistico();
         Autor autor = new Autor();
@@ -317,8 +318,19 @@ public class ControllerServlet extends HttpServlet {
 
             address = "index.jsp";
         }
+        else if (request.getParameter("NomeAutor") != null) {
 
+            autor2.setNome(request.getParameter("NomeAutor").toString());
+            autor2.setPais(request.getParameter("PaisAutor").toString());
 
+            try {
+                db.NewAutor(autor);
+            } catch (Exception ex) {
+                Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            address = "uploadinfo.jsp";
+        }
 
         RequestDispatcher dispatcher =
 	    request.getRequestDispatcher(address);

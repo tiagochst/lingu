@@ -113,6 +113,25 @@ public class db_controller {
             return true;
         }
     }
+        public Boolean NewAutor(Autor autor) throws Exception {
+
+        try {
+
+            open();
+            preparedStatement = connect.prepareStatement("insert into dbmc536b16.Autor values (default, ?, ?)");
+
+            preparedStatement.setString(1, autor.getNome());
+            preparedStatement.setString(2, autor.getPais());
+
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            close();
+            return true;
+        }
+    }
 
     public Boolean NewProg(PgmMultilinguistico prog) throws Exception {
 
