@@ -9,10 +9,9 @@
         <servlet-class>controller.ControllerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-    <servlet-name>ControllerServlet</servlet-name>
-    <url-pattern>/chooseLanguage</url-pattern>
-</servlet-mapping>
-
+        <servlet-name>ControllerServlet</servlet-name>
+        <url-pattern>/chooseLanguage</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>jdbc</servlet-name>
         <servlet-class>controller.jdbc</servlet-class>
@@ -63,6 +62,7 @@
         </jsp-property-group>
         <jsp-property-group>
             <description>header and footer settings</description>
+            <url-pattern>/cadastroautor.jsp</url-pattern>
             <url-pattern>/cadastroprog.jsp</url-pattern>
             <url-pattern>/logout.jsp</url-pattern>
             <url-pattern>/login.jsp</url-pattern>

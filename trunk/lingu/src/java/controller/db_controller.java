@@ -113,7 +113,8 @@ public class db_controller {
             return true;
         }
     }
-        public Boolean NewAutor(Autor autor) throws Exception {
+
+    public Boolean NewAutor(Autor autor) throws Exception {
 
         try {
 
