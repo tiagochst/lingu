@@ -89,6 +89,7 @@ import javax.servlet.http.HttpServletResponse;
             Vector resultDoc;
 	    /* Busca por título do documento. */
 	    if (request.getParameter("Titulo") != null) {
+                adv = 1;
 		doc.setTitulo(request.getParameter("Titulo").toString());
 	    }
             /* Busca por palavra-chave. */

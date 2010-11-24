@@ -324,7 +324,7 @@ public class ControllerServlet extends HttpServlet {
             autor2.setPais(request.getParameter("PaisAutor").toString());
 
             try {
-                db.NewAutor(autor);
+                db.NewAutor(autor2);
             } catch (Exception ex) {
                 Logger.getLogger(ControllerServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
