@@ -30,10 +30,11 @@
                 <td align="center"><INPUT type="text" name="LinguaUtilizador" size="30" alt="Busca por lingua utilizador."></td>
 	  </tr>
           <tr>
-          <!--    <td>Tipo</td>
+            <td>Tipo</td>
 		<td>
 
 		  <SELECT name="Tipo" >
+                       <option value="8">Qualquer tipo</option>
 		    <option value="0">Artigo jornal?stico</option>
 		    <option value="1">Artigo cient?fico</option>
                     <option value="2">Texto reinvidicat?rio</option>
@@ -42,10 +43,10 @@
                     <option value="5">Declara??es</option>
                     <option value="6">Sugest?es</option>
                     <option value="7">Outros</option>
-                     <option value="8">Qualquer tipo</option>
+                    
 		  </SELECT>
 		</td>
-  </tr> -->   <tr>
+  </tr>   <tr>
                 <td align="center"><INPUT type="submit" name="BuscarAvancada" value="Buscar"></td>
               </tr>
             </tbody>
