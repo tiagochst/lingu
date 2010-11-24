@@ -117,6 +117,11 @@ import javax.servlet.http.HttpServletResponse;
                   adv=1;
 		doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
 	    }
+     if (request.getParameter("Tipo") != null && !request.getParameter("Tipo").equals("")) {
+                doc.setTipo(Integer.parseInt(request.getParameter("Tipo")));
+
+                    adv=1;
+           }
 
 
 	    try {

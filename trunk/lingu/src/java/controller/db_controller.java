@@ -325,9 +325,10 @@ public class db_controller {
                         if (doc.getLinguaOficial() == null || docFound.getLinguaOficial().toLowerCase().contains(oficial)) {
                             if (doc.getLinguaUtilizador() == null || docFound.getLinguaUtilizador().toLowerCase().contains(util)) {
                            if (aut.getNome() == null || resultSet.getString("Nome").toLowerCase().contains(autor)) {
+   if (doc.getTipo() == 8 || resultSet.getInt("Tipo") == doc.getTipo()) {
 
                                 resultDoc.addElement(docFound);
-                                }
+                                }}
                               
                             }
                         }
