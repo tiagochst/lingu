@@ -91,6 +91,7 @@ import javax.servlet.http.HttpServletResponse;
 	    if (request.getParameter("Titulo") != null) {
                 adv = 1;
 		doc.setTitulo(request.getParameter("Titulo").toString());
+                 adv=1;
 	    }
             /* Busca por palavra-chave. */
             if (request.getParameter("Tudo") != null) {
@@ -116,16 +117,7 @@ import javax.servlet.http.HttpServletResponse;
                   adv=1;
 		doc.setLinguaUtilizador(request.getParameter("LinguaUtilizador").toString());
 	    }
-             if (request.getParameter("Tipo") != null && !request.getParameter("Tipo").equals("")) {
-         	doc.setTipo(Integer.parseInt(request.getParameter("Tipo")));
-                /*
-                 Se for escolhido algum tipo de documento deve-se fazer busca avançada
-                 tipo 8 = qualquer tipo
-                 */
-                if(doc.getTipo()!=8){
-                    adv=1;
-                }
-	    }
+
 
 	    try {
                 if(adv==1){
