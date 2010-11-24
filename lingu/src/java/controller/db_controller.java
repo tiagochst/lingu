@@ -120,7 +120,8 @@ public class db_controller {
 
             open();
             preparedStatement = connect.prepareStatement("insert into dbmc536b16.Autor values (default, ?, ?)");
-
+            System.out.println(autor.getNome());
+            System.out.println(autor.getPais());
             preparedStatement.setString(1, autor.getNome());
             preparedStatement.setString(2, autor.getPais());
 
@@ -294,6 +295,7 @@ public class db_controller {
         }
         if (aut.getNome() != null) {
             autor = aut.getNome().toLowerCase();
+             System.out.println(autor);
         }
         Vector resultDoc = new Vector();
 
@@ -322,11 +324,11 @@ public class db_controller {
                     if (doc.getPais() == null || docFound.getPais().toLowerCase().contains(pais)) {
                         if (doc.getLinguaOficial() == null || docFound.getLinguaOficial().toLowerCase().contains(oficial)) {
                             if (doc.getLinguaUtilizador() == null || docFound.getLinguaUtilizador().toLowerCase().contains(util)) {
-                                if (aut.getNome() == null || resultSet.getString("Nome").toLowerCase().contains(autor)) {
-                                    if (doc.getTipo() == 8 || resultSet.getInt("Tipo") == doc.getTipo()) {
-                                        resultDoc.addElement(docFound);
-                                    }
+                           if (aut.getNome() == null || resultSet.getString("Nome").toLowerCase().contains(autor)) {
+
+                                resultDoc.addElement(docFound);
                                 }
+                              
                             }
                         }
                     }
